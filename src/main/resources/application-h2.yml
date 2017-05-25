@@ -1,0 +1,20 @@
+app:
+  c3p0:
+    datasource:
+      jdbc-url: jdbc:h2:mem:bm;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      user: sa
+      password: 
+      driver-class: org.h2.Driver
+spring:
+  profiles:
+    active: h2
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false # Enable trace output.
+        web-allow-others: false # Enable remote access.
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect

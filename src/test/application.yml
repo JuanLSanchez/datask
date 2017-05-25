@@ -1,0 +1,18 @@
+app:
+  c3p0:
+    datasource:
+      max-pool-size: 20
+      min-pool-size: 1
+      max-idle-time: 60
+      test-connection-on-checkout: false
+      test-connection-on-checkin: true
+      idle-connection-test-period: 30
+spring:
+  application:
+    name: bm
+  profiles:
+    active: test,dev,h2,liquibase
+  jackson.serialization:
+    write_dates_as_timestamps: false
+    write_date_timestamps_as_nanoseconds: false
+management.context-path: /manage

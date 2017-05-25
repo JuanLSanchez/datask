@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: true
+app:
+  properties:
+    cors:
+      allowed-origins: '*'
+      allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+      allowed-headers: '*'
+      exposed-headers: Link,FileName
+      allow-credentials: true
+      max-age: 1800
+    security:
+      authentication:
+        jwt:
+          secret: my-secret-token-to-change-in-production
+          tokenValidityInSeconds: 86400
+logging:
+  level:
+    root: WARN
+    org.springframework.web: INFO
+    org.hibernate: INFO
+    es.juanlsanchez.bm: DEBUG
