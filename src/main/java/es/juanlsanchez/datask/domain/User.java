@@ -10,13 +10,17 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import es.juanlsanchez.datask.domain.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,6 +31,10 @@ import lombok.ToString;
 @ToString
 @Table(name = "user_api")
 public class User extends BaseEntity {
+
+  public static final String C_USER_ID = "user_id";
+
+  public static final String A_COMPANY = "company";
 
   @NotNull
   @Size(min = 1, max = 50)
@@ -42,6 +50,7 @@ public class User extends BaseEntity {
   private String surname;
 
   @Past
+  @CreatedDate
   private Instant creationMoment;
 
   @NotNull
@@ -53,5 +62,9 @@ public class User extends BaseEntity {
       joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
       inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
   private Set<Authority> authorities = new HashSet<>();
+
+  @ManyToOne
+  @JoinColumn(name = "company_id")
+  private Company company;
 
 }

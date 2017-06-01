@@ -1,7 +1,7 @@
 app:
   c3p0:
     datasource:
-      jdbc-url: jdbc:h2:mem:bm;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      jdbc-url: jdbc:h2:mem:datask;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       user: sa
       password: 
       driver-class: org.h2.Driver
