@@ -18,10 +18,21 @@ import es.juanlsanchez.datask.manager.UserJWTManager;
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.web.dto.JWTTokenDTO;
 import es.juanlsanchez.datask.web.dto.LoginDTO;
+import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(UserJWTController.URL)
+@Api(value = "User JWT", tags = "User")
+@Slf4j
 public class UserJWTController {
+
+
+  static final String URL = "${spring.application.prefix}${spring.application.version}/user";
+  private static final String AUTHENTICATE = "/authenticate";
+
+  public static final String SECURITY_URL = URL;
+  public static final String SECURITY_AUTHENTICATE_URL = AUTHENTICATE;
 
   private final UserJWTManager userJWTManager;
 
@@ -31,7 +42,7 @@ public class UserJWTController {
 
   }
 
-  @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+  @RequestMapping(value = AUTHENTICATE, method = RequestMethod.POST)
   public ResponseEntity<?> authorize(@Valid @RequestBody LoginDTO loginDTO,
       HttpServletResponse response) {
 
@@ -39,9 +50,14 @@ public class UserJWTController {
       JWTTokenDTO jwt = this.userJWTManager.authorize(loginDTO);
 
       response.addHeader(JWTConfigurer.AUTHORIZATION_HEADER, "Bearer " + jwt.getIdToken());
+      log.debug("Logging user {} with Bearer {}", loginDTO, jwt.getIdToken());
 
       return ResponseEntity.ok(jwt);
+
     } catch (AuthenticationException exception) {
+
+      log.debug("Bad logging user {}", loginDTO);
+
       return new ResponseEntity<>(
           Collections.singletonMap("AuthenticationException", exception.getLocalizedMessage()),
           HttpStatus.UNAUTHORIZED);

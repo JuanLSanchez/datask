@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +17,17 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
+import es.juanlsanchez.datask.web.rest.AccountResource;
+import es.juanlsanchez.datask.web.rest.UserJWTController;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Inject
   private UserDetailsService userDetailsService;
+
+  @Inject
+  private Environment env;
 
   @Inject
   private TokenProvider tokenProvider;
@@ -42,13 +48,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    http.authorizeRequests().antMatchers("/api/authenticate").permitAll();
+    // Swagger
+    http.authorizeRequests().antMatchers("/v2/api-docs", "/swagger-resources/**",
+        "/configuration/ui", "/configuration/security", "/swagger-ui.html", "/webjars/**")
+        .permitAll();
+
+    // Health
     http.authorizeRequests().antMatchers("/manage/health").permitAll();
+
+    // JS CORS and options
     http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-    http.authorizeRequests().antMatchers("/**").hasAuthority(AuthoritiesConstants.USER);
-    http.authorizeRequests().antMatchers("/**").hasAnyAuthority(AuthoritiesConstants.MANAGE);
-    http.authorizeRequests().antMatchers("/**").hasAuthority(AuthoritiesConstants.ADMIN);
-    http.authorizeRequests().anyRequest().hasAuthority(AuthoritiesConstants.ADMIN);
+
+    // Authenticate
+    String authenticateUrl =
+        resolve(UserJWTController.SECURITY_URL, UserJWTController.SECURITY_AUTHENTICATE_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.POST, authenticateUrl).permitAll();
+
+    // Account
+    String meUrl = resolve(AccountResource.SECURITY_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, meUrl).authenticated();
+
+    // Others
+    http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);
+
     http.apply(securityConfigurerAdapter());
     http.exceptionHandling();
 
@@ -64,5 +88,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private JWTConfigurer securityConfigurerAdapter() {
     return new JWTConfigurer(tokenProvider);
+  }
+
+  private String resolve(String... text) {
+    String result = "";
+    for (String t : text) {
+      result += this.env.resolvePlaceholders(t);
+    }
+    return result;
   }
 }

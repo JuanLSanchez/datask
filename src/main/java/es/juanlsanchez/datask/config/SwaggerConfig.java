@@ -29,7 +29,7 @@ public class SwaggerConfig {
   }
 
   private String getPath() {
-    return MessageFormat.format("/{0}/**", appConfig.getVersion());
+    return MessageFormat.format("/{0}/**", appConfig.getPrefix() + appConfig.getVersion());
   }
 
   private ApiInfo apiInfo() {
