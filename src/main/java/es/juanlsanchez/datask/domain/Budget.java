@@ -43,10 +43,10 @@ public class Budget extends BaseEntity {
   public static final String A_OWN_AMOUNT = "ownAmount";
 
   @Column(name = C_OWN_AMOUNT)
-  private Float ownAmount;
+  private Double ownAmount;
 
   @Column(name = C_HOURS)
-  private Float hours;
+  private Double hours;
 
   @Column(name = C_BILLING_DATE)
   private LocalDate billingDate;

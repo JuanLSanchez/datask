@@ -1,0 +1,1055 @@
+databaseChangeLog:
+- changeSet:
+    id: 1496679153797-1
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(50)
+        tableName: authority
+- changeSet:
+    id: 1496679153797-2
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: budget_id
+            name: id
+            type: BIGINT
+        - column:
+            name: billing_date
+            type: date
+        - column:
+            name: end_date
+            type: date
+        - column:
+            name: hours
+            type: DOUBLE
+        - column:
+            name: own_amount
+            type: DOUBLE
+        - column:
+            name: start_date
+            type: date
+        tableName: budget
+- changeSet:
+    id: 1496679153797-3
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: comment_id
+            name: id
+            type: BIGINT
+        - column:
+            name: creation_date
+            type: datetime
+        - column:
+            name: modification_date
+            type: datetime
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: text
+            type: VARCHAR(255)
+        - column:
+            name: origin_id
+            type: BIGINT
+        - column:
+            name: task_id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: comment
+- changeSet:
+    id: 1496679153797-4
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: company_id
+            name: id
+            type: BIGINT
+        - column:
+            name: address
+            type: VARCHAR(255)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: type_company
+            type: VARCHAR(255)
+        tableName: company
+- changeSet:
+    id: 1496679153797-5
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: notification_id
+            name: id
+            type: BIGINT
+        - column:
+            name: creation_date
+            type: datetime
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            name: comment_id
+            type: BIGINT
+        - column:
+            name: project_id
+            type: BIGINT
+        - column:
+            name: task_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        tableName: notification
+- changeSet:
+    id: 1496679153797-6
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: panel_id
+            name: id
+            type: BIGINT
+        - column:
+            name: creation_date
+            type: date
+        - column:
+            name: default_task_status
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: order_panel
+            type: INT
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            name: project_id
+            type: BIGINT
+        tableName: panel
+- changeSet:
+    id: 1496679153797-7
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: project_id
+            name: id
+            type: BIGINT
+        - column:
+            name: completed_estimated
+            type: INT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            name: budget_id
+            type: BIGINT
+        - column:
+            name: company_id
+            type: BIGINT
+        tableName: project
+- changeSet:
+    id: 1496679153797-8
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: subscription_id
+            name: id
+            type: BIGINT
+        - column:
+            name: end
+            type: date
+        - column:
+            name: start
+            type: date
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            name: type
+            type: VARCHAR(255)
+        - column:
+            name: company_id
+            type: BIGINT
+        tableName: subscription
+- changeSet:
+    id: 1496679153797-9
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: task_id
+            name: id
+            type: BIGINT
+        - column:
+            name: complexity
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: creation_date
+            type: datetime
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: estimated_hours
+            type: INT
+        - column:
+            name: estimated_minutes
+            type: INT
+        - column:
+            name: order_task
+            type: INT
+        - column:
+            name: task_type
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: title
+            type: VARCHAR(255)
+        - column:
+            name: panel_id
+            type: BIGINT
+        tableName: task
+- changeSet:
+    id: 1496679153797-10
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: task_request_id
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: billing_amount
+            type: DOUBLE
+        - column:
+            constraints:
+              nullable: false
+            name: estimated_amount
+            type: DOUBLE
+        - column:
+            name: request_changed
+            type: datetime
+        - column:
+            name: request_date
+            type: datetime
+        - column:
+            name: status
+            type: VARCHAR(255)
+        - column:
+            name: task_id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: task_request
+- changeSet:
+    id: 1496679153797-11
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: time_id
+            name: id
+            type: BIGINT
+        - column:
+            name: end
+            type: datetime
+        - column:
+            name: start
+            type: datetime
+        - column:
+            name: task_id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: time
+- changeSet:
+    id: 1496679153797-12
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_api_id
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: activated
+            type: BIT(1)
+        - column:
+            name: creation_moment
+            type: datetime
+        - column:
+            constraints:
+              nullable: false
+            name: login
+            type: VARCHAR(50)
+        - column:
+            constraints:
+              nullable: false
+            name: password_hash
+            type: VARCHAR(60)
+        - column:
+            name: company_id
+            type: BIGINT
+        tableName: user_api
+- changeSet:
+    id: 1496679153797-13
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: authority_name
+            type: VARCHAR(50)
+        tableName: user_authority
+- changeSet:
+    id: 1496679153797-14
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_data_id
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: email
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: office_phone
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: surname
+            type: VARCHAR(255)
+        - column:
+            name: type_user
+            type: VARCHAR(255)
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: user_data
+- changeSet:
+    id: 1496679153797-15
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_project_id
+            name: id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: relation_type
+            type: VARCHAR(255)
+        - column:
+            name: project_id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: user_project
+- changeSet:
+    id: 1496679153797-16
+    author: juanlu (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_task_id
+            name: id
+            type: BIGINT
+        - column:
+            name: assigned
+            type: BIT(1)
+        - column:
+            name: faouvorite
+            type: BIT(1)
+        - column:
+            name: task_id
+            type: BIGINT
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: user_task
+- changeSet:
+    id: 1496679153797-17
+    author: juanlu (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: name
+        constraintName: authority_id
+        tableName: authority
+- changeSet:
+    id: 1496679153797-19
+    author: juanlu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: budget_id
+        constraintName: UK_3usa0epdbvva1qt6fae0ujdqo
+        tableName: project
+- changeSet:
+    id: 1496679153797-20
+    author: juanlu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: task_id
+        constraintName: UK_9jg1befqkav18h9ukv3no7yv9
+        tableName: task_request
+- changeSet:
+    id: 1496679153797-21
+    author: juanlu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: login
+        constraintName: UK_ogrm8o9ybxfox3jto92j0byl1
+        tableName: user_api
+- changeSet:
+    id: 1496679153797-22
+    author: juanlu (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: company_id
+        constraintName: UK_q0jcwdjajcmx9rvivd5u6c3b1
+        tableName: subscription
+- changeSet:
+    id: 1496679153797-23
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FK40ids9n3pktxuiqnllwqnbvre
+        tableName: task_request
+- changeSet:
+    id: 1496679153797-24
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: authority_name
+        indexName: FK6ktglpl5mjosa283rvken2py5
+        tableName: user_authority
+- changeSet:
+    id: 1496679153797-25
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: company_id
+        indexName: FK76fngi71pfr8phbobe5pq0swd
+        tableName: project
+- changeSet:
+    id: 1496679153797-26
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FK7w1iw99sscjw0t6djrq3amdh6
+        tableName: user_project
+- changeSet:
+    id: 1496679153797-27
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKaj3ffbbviirvgc6axu54d4yea
+        tableName: comment
+- changeSet:
+    id: 1496679153797-28
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKarcnqv39te6e1p5xomr010ync
+        tableName: notification
+- changeSet:
+    id: 1496679153797-29
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: project_id
+        indexName: FKdwnp3nfhag7odh7wtjqcl5uia
+        tableName: panel
+- changeSet:
+    id: 1496679153797-30
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: task_id
+        indexName: FKe1ln63chpj4vcbkyfmid41w7s
+        tableName: time
+- changeSet:
+    id: 1496679153797-31
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: task_id
+        indexName: FKfknte4fhjhet3l1802m1yqa50
+        tableName: comment
+- changeSet:
+    id: 1496679153797-32
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: task_id
+        indexName: FKg6e8dcyvu9qdcfds2o3pj9qen
+        tableName: notification
+- changeSet:
+    id: 1496679153797-33
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: comment_id
+        indexName: FKgmcypgrcb3oo4ujbbk7cyaro2
+        tableName: notification
+- changeSet:
+    id: 1496679153797-34
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: origin_id
+        indexName: FKgnqkykjcok71bm7ua4hn2ksid
+        tableName: comment
+- changeSet:
+    id: 1496679153797-35
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: project_id
+        indexName: FKi35sfx0x08fonfxf2l8cp2xcp
+        tableName: notification
+- changeSet:
+    id: 1496679153797-36
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKidxey3lgs9qgb2o0e4l4ehpdp
+        tableName: user_task
+- changeSet:
+    id: 1496679153797-37
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: panel_id
+        indexName: FKkvdcnj16dkixr8t7lrcq0s47l
+        tableName: task
+- changeSet:
+    id: 1496679153797-38
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: company_id
+        indexName: FKmbdhqsjf8l7qslml33ujwj3st
+        tableName: user_api
+- changeSet:
+    id: 1496679153797-39
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: project_id
+        indexName: FKocfkr6u2yh3w1qmybs8vxuv1c
+        tableName: user_project
+- changeSet:
+    id: 1496679153797-40
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKohbtw6su7igobf1bfuypaa9vp
+        tableName: user_data
+- changeSet:
+    id: 1496679153797-41
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKtcmcxakmflgnplagu3g0hqpcd
+        tableName: time
+- changeSet:
+    id: 1496679153797-42
+    author: juanlu (generated)
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: task_id
+        indexName: FKvs34bjkmpbk2e54qlrol3ilt
+        tableName: user_task
+- changeSet:
+    id: 1496679153797-43
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: task_request
+        constraintName: FK40ids9n3pktxuiqnllwqnbvre
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-44
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: company_id
+        baseTableName: subscription
+        constraintName: FK45i0k0ls0erwl77ei45ds25t8
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: company
+- changeSet:
+    id: 1496679153797-45
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: authority_name
+        baseTableName: user_authority
+        constraintName: FK6ktglpl5mjosa283rvken2py5
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: name
+        referencedTableName: authority
+- changeSet:
+    id: 1496679153797-46
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: company_id
+        baseTableName: project
+        constraintName: FK76fngi71pfr8phbobe5pq0swd
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: company
+- changeSet:
+    id: 1496679153797-47
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_project
+        constraintName: FK7w1iw99sscjw0t6djrq3amdh6
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-48
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: comment
+        constraintName: FKaj3ffbbviirvgc6axu54d4yea
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-49
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: notification
+        constraintName: FKarcnqv39te6e1p5xomr010ync
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-50
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: project_id
+        baseTableName: panel
+        constraintName: FKdwnp3nfhag7odh7wtjqcl5uia
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: project
+- changeSet:
+    id: 1496679153797-51
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: time
+        constraintName: FKe1ln63chpj4vcbkyfmid41w7s
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: task
+- changeSet:
+    id: 1496679153797-52
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: comment
+        constraintName: FKfknte4fhjhet3l1802m1yqa50
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: task
+- changeSet:
+    id: 1496679153797-53
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: notification
+        constraintName: FKg6e8dcyvu9qdcfds2o3pj9qen
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: task
+- changeSet:
+    id: 1496679153797-54
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: comment_id
+        baseTableName: notification
+        constraintName: FKgmcypgrcb3oo4ujbbk7cyaro2
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: comment
+- changeSet:
+    id: 1496679153797-55
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: origin_id
+        baseTableName: comment
+        constraintName: FKgnqkykjcok71bm7ua4hn2ksid
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: comment
+- changeSet:
+    id: 1496679153797-56
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: project_id
+        baseTableName: notification
+        constraintName: FKi35sfx0x08fonfxf2l8cp2xcp
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: project
+- changeSet:
+    id: 1496679153797-57
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_task
+        constraintName: FKidxey3lgs9qgb2o0e4l4ehpdp
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-58
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: task_request
+        constraintName: FKk1qs8dn8gbhcg4u0pm94ecy9o
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: task
+- changeSet:
+    id: 1496679153797-59
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: panel_id
+        baseTableName: task
+        constraintName: FKkvdcnj16dkixr8t7lrcq0s47l
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: panel
+- changeSet:
+    id: 1496679153797-60
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: company_id
+        baseTableName: user_api
+        constraintName: FKmbdhqsjf8l7qslml33ujwj3st
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: company
+- changeSet:
+    id: 1496679153797-61
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: project_id
+        baseTableName: user_project
+        constraintName: FKocfkr6u2yh3w1qmybs8vxuv1c
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: project
+- changeSet:
+    id: 1496679153797-62
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_data
+        constraintName: FKohbtw6su7igobf1bfuypaa9vp
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-63
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: budget_id
+        baseTableName: project
+        constraintName: FKs3rsinw0nn69541njxo0spq5r
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: budget
+- changeSet:
+    id: 1496679153797-64
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_authority
+        constraintName: FKt36lmobgj9qihjscnks4d790v
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-65
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: time
+        constraintName: FKtcmcxakmflgnplagu3g0hqpcd
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: user_api
+- changeSet:
+    id: 1496679153797-66
+    author: juanlu (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: task_id
+        baseTableName: user_task
+        constraintName: FKvs34bjkmpbk2e54qlrol3ilt
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: task

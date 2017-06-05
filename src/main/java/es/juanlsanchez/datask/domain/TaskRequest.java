@@ -38,11 +38,11 @@ public class TaskRequest extends BaseEntity {
 
   @NotNull
   @Column(name = "estimated_amount", nullable = false)
-  private Float estimatedAmount;
+  private Double estimatedAmount;
 
   @NotNull
   @Column(name = "billing_amount", nullable = false)
-  private Float billingAmount;
+  private Double billingAmount;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "status")
