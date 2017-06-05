@@ -1,7 +1,7 @@
-id,login,password_hash,activated,surname,creation_moment
-1,admin,$2a$10$xvWAQrz1kyZ2YpCasVZZ1OjXp/SwaTZOytf7cjy7AEm8qQsKI6e.i,true,surname admin,2014-07-20 10:10:13
-2,manage,$2a$10$WfbrKlSCG3RCCBI09D3/JuMeLkrfnntIkv8LiMEXG6qhZpUrZvI9u,true,surname manage,2014-06-20 10:10:13
-3,user001,$2a$10$WfbrKlSCG3RCCBI09D3/JuMeLkrfnntIkv8LiMEXG6qhZpUrZvI9u,true,surname user001,2014-06-20 10:10:13
-4,user002,$2a$10$WfbrKlSCG3RCCBI09D3/JuMeLkrfnntIkv8LiMEXG6qhZpUrZvI9u,true,surname user002,2015-03-21 10:10:13
-5,user003,$2a$10$WfbrKlSCG3RCCBI09D3/JuMeLkrfnntIkv8LiMEXG6qhZpUrZvI9u,false,surname user003,2016-06-22 10:10:13
-6,user004,$2a$10$WfbrKlSCG3RCCBI09D3/JuMeLkrfnntIkv8LiMEXG6qhZpUrZvI9u,true,surname user004,2015-04-23 10:10:13
+id,login,password_hash,activated,creation_moment,company_id
+1,admin,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2015-07-20 10:10:13,1
+2,manage,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2015-06-20 10:10:13,1
+3,develop01,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2015-06-20 10:10:13,1
+4,develop02,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2016-03-21 10:10:13,1
+5,company01,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,false,2017-06-02 10:10:13,2
+6,company02,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2017-06-03 10:10:13,2

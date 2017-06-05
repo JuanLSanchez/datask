@@ -1,0 +1,7 @@
+id,email,name,office_phone,surname,type_user,user_id
+1,admin@admin.com,Administrator,666999666,Root,INTERNAL,1
+2,manager@manager.com,Manager,696969696,Organizer,INTERNAL,2
+3,develop01@dev.com,Develop 01,669966996,Artist 01,INTERNAL,3
+4,develop02@dev.com,Develop 02,659966996,Artist 02,INTERNAL,4
+5,company01@comp.com,Company 01,611111111,Money 01,CONTACT,5
+6,company02@comp.com,Company 02,611111111,Money 02,CONTACT,6

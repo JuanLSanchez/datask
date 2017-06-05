@@ -1,0 +1,32 @@
+databaseChangeLog:
+- changeSet:
+    id: 1496683736443-1
+    author: JuanLSanchez
+    changes:
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/company.csv
+        tableName: company
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/user_api.csv
+        tableName: user_api
+        columns:
+        - column:
+            name: creation_moment
+            type: timestamp
+        - column:
+            name: activated
+            type: boolean
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/authority.csv
+        tableName: authority
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/user_authority.csv
+        tableName: user_authority
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/user_data.csv
+        tableName: user_data
