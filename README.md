@@ -1,4 +1,5 @@
 # Datask
+
 ## Run with docker
 
 You can run this application with docker. For this you should execute the next commands
@@ -14,3 +15,7 @@ To stop the container, you should search the name with:
 With the name, you can stop the container with:
 
 * docker stop name
+
+## Swagger
+
+You can see the endpoints in the url `${server.url}/swagger-ui.html`. With the docker in local `http://localhost:8080/swagger-ui.html`.
