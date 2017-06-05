@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import es.juanlsanchez.datask.domain.base.BaseEntity;
-import es.juanlsanchez.datask.domain.enumeration.EnumUserProfile;
 import es.juanlsanchez.datask.domain.enumeration.EnumUserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,10 +45,6 @@ public class UserData extends BaseEntity {
 
   @Column(name = "office_phone")
   private String officePhone;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "profile")
-  private EnumUserProfile profile;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "type_user")

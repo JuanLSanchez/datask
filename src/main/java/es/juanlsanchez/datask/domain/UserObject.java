@@ -1,5 +1,6 @@
 package es.juanlsanchez.datask.domain;
 
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -13,6 +14,7 @@ import lombok.Setter;
 public abstract class UserObject extends BaseEntity {
 
   @ManyToOne
+  @JoinColumn(name = "user_id")
   private User principal;
 
 }

@@ -4,14 +4,11 @@ import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.juanlsanchez.datask.domain.base.BaseEntity;
-import es.juanlsanchez.datask.domain.enumeration.EnumTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,10 +36,6 @@ public class Time extends BaseEntity {
 
   @Column(name = "end")
   private Instant end;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "type")
-  private EnumTime type;
 
   // Relationships ----------------------------------------------
 

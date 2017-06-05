@@ -11,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import es.juanlsanchez.datask.domain.base.BaseEntity;
-import es.juanlsanchez.datask.domain.enumeration.EnumNotification;
 import es.juanlsanchez.datask.domain.enumeration.EnumNotificationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,10 +48,6 @@ public class Notification extends BaseEntity {
   @Column(name = "status")
   private EnumNotificationStatus status;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "type")
-  private EnumNotification type;
-
   // Relationships ----------------------------------------------
 
   @ManyToOne
@@ -68,7 +63,7 @@ public class Notification extends BaseEntity {
   private Project project;
 
   @ManyToOne
-  @JoinColumn(name = C_USER_ID)
+  @JoinColumn(name = C_USER_ID, nullable = false)
   private User user;
 
 }

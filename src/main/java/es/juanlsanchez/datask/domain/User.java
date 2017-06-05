@@ -47,8 +47,6 @@ public class User extends BaseEntity {
   @Column(name = "password_hash", length = 60)
   private String password;
 
-  private String surname;
-
   @Past
   @CreatedDate
   private Instant creationMoment;
