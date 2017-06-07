@@ -1,4 +1,4 @@
-package es.juanlsanchez.datask.mapper;
+package es.juanlsanchez.datask.web.mapper;
 
 import org.mapstruct.Mapper;
 

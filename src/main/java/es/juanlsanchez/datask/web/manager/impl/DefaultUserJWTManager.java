@@ -1,4 +1,4 @@
-package es.juanlsanchez.datask.manager.impl;
+package es.juanlsanchez.datask.web.manager.impl;
 
 import javax.inject.Inject;
 
@@ -9,10 +9,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import es.juanlsanchez.datask.manager.UserJWTManager;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
 import es.juanlsanchez.datask.web.dto.JWTTokenDTO;
 import es.juanlsanchez.datask.web.dto.LoginDTO;
+import es.juanlsanchez.datask.web.manager.UserJWTManager;
 
 @Component
 public class DefaultUserJWTManager implements UserJWTManager {

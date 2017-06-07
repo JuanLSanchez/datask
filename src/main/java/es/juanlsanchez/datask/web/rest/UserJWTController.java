@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.juanlsanchez.datask.manager.UserJWTManager;
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.web.dto.JWTTokenDTO;
 import es.juanlsanchez.datask.web.dto.LoginDTO;
+import es.juanlsanchez.datask.web.manager.UserJWTManager;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 

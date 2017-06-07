@@ -1,6 +1,6 @@
 package es.juanlsanchez.datask.config;
 
-import javax.inject.Inject;
+import java.text.MessageFormat;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -15,17 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CORSConfig {
 
-  @Inject
-  private AppConfig appConfig;
-
-
   @Bean
   @ConditionalOnProperty(name = "app.properties.cors.allowed-origins")
-  public CorsFilter corsFilter() {
-    log.debug("Registering CORS filter");
+  public CorsFilter corsFilter(AppConfig appConfig) {
+    log.info("Registering CORS filter");
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = appConfig.getCors();
-    source.registerCorsConfiguration("/api/**", config);
+    String path = MessageFormat.format("/{0}/**", appConfig.getPrefix() + appConfig.getVersion());
+    source.registerCorsConfiguration(path, config);
     return new CorsFilter(source);
   }
 

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.juanlsanchez.datask.manager.AccountManager;
 import es.juanlsanchez.datask.web.dto.UserDTO;
+import es.juanlsanchez.datask.web.manager.AccountManager;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AccountResource {
 
-  static final String URL = "${spring.application.prefix}${spring.application.version}/me";
+  static final String URL = "${spring.application.prefix}${spring.application.version}/account";
 
   public static final String SECURITY_URL = URL;
 

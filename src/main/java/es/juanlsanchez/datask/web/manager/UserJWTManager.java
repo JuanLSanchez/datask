@@ -1,4 +1,4 @@
-package es.juanlsanchez.datask.manager;
+package es.juanlsanchez.datask.web.manager;
 
 import org.springframework.security.core.AuthenticationException;
 

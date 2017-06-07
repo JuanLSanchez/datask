@@ -1,4 +1,4 @@
-package es.juanlsanchez.datask.manager;
+package es.juanlsanchez.datask.web.manager;
 
 import es.juanlsanchez.datask.web.dto.UserDTO;
 
