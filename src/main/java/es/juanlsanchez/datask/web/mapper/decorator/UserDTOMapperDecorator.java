@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Qualifier;
 
 import es.juanlsanchez.datask.domain.User;
 import es.juanlsanchez.datask.web.dto.UserDTO;
-import es.juanlsanchez.datask.web.mapper.UserMapper;
+import es.juanlsanchez.datask.web.mapper.UserDTOMapper;
 
-public class UserMapperDecorator implements UserMapper {
+public class UserDTOMapperDecorator implements UserDTOMapper {
 
   @Autowired
   @Qualifier("delegate")
-  private UserMapper delegate;
+  private UserDTOMapper delegate;
 
   @Override
-  public UserDTO userToUserDTO(User principal) {
-    UserDTO result = delegate.userToUserDTO(principal);
+  public UserDTO fromUser(User principal) {
+    UserDTO result = delegate.fromUser(principal);
     result.setAuthorities(principal.getAuthorities().stream()
         .map(authority -> authority.getName().toString()).collect(Collectors.toList()));
     return result;

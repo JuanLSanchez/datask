@@ -6,13 +6,13 @@ import org.mapstruct.Mapping;
 
 import es.juanlsanchez.datask.domain.User;
 import es.juanlsanchez.datask.web.dto.UserDTO;
-import es.juanlsanchez.datask.web.mapper.decorator.UserMapperDecorator;
+import es.juanlsanchez.datask.web.mapper.decorator.UserDTOMapperDecorator;
 
 @Mapper(componentModel = "spring")
-@DecoratedWith(UserMapperDecorator.class)
-public interface UserMapper {
+@DecoratedWith(UserDTOMapperDecorator.class)
+public interface UserDTOMapper {
 
   @Mapping(target = "authorities", ignore = true)
-  public UserDTO userToUserDTO(User principal);
+  public UserDTO fromUser(User principal);
 
 }
