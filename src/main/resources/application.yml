@@ -1,12 +1,3 @@
-app:
-  c3p0:
-    datasource:
-      max-pool-size: 20
-      min-pool-size: 1
-      max-idle-time: 60
-      test-connection-on-checkout: false
-      test-connection-on-checkin: true
-      idle-connection-test-period: 30
 spring:
   application:
     name: '@artifactId@'
@@ -16,4 +7,10 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: false
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: datask-hikari
+      minimum-idle: 1
+      maximum-pool-size: 10
 management.context-path: /manage

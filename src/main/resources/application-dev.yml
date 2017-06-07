@@ -25,4 +25,4 @@ logging:
     root: WARN
     org.springframework.web: INFO
     org.hibernate: INFO
-    es.juanlsanchez.bm: DEBUG
+    es.juanlsanchez.datask: DEBUG
