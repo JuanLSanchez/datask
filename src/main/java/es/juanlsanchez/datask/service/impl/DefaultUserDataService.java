@@ -29,7 +29,7 @@ public class DefaultUserDataService implements UserDataService {
 
   private UserData getOneByLogin(String login) {
     return userDataRepository.findOneByUserLogin(login)
-        .orElseThrow(() -> new IllegalArgumentException("Not found user"));
+        .orElseThrow(() -> new IllegalArgumentException("Not found user data"));
   }
 
 

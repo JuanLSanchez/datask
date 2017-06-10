@@ -1,3 +1,8 @@
+app:
+  properties:
+    swagger:
+      description: Version @version@ of datask
+      name: Datask
 spring:
   application:
     name: '@artifactId@'
