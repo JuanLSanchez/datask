@@ -1,3 +1,9 @@
 id,address,name,type_company
-1,Nervion,Dinamic Area,INTERNAL
+1,Nervion; Sevilla,Dinamic Area,INTERNAL
 2,Reino Unido,Canonical Ltd,CONTACT
+3,Mountain View; California; Estados Unidos,Alphabet Inc.,CONTACT
+4,Redmond; Washington; Estados ,Microsoft,CONTACT
+5,Raleigh; Carolina del Norte,Red Hat Inc. ,CONTACT
+6,Armonk; NY; Estados Unidos,International Business Machines.,CONTACT
+7,Redwood Shores; California,Oracle Corporation,CONTACT
+8,Nervion; Sevilla,SESID,CONTACT

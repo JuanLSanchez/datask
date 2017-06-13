@@ -30,3 +30,11 @@ databaseChangeLog:
         encoding: UTF-8
         file: db/changelog/loaddata/user_data.csv
         tableName: user_data
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/budget.csv
+        tableName: budget
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/project.csv
+        tableName: project

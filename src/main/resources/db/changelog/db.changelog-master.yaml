@@ -2,4 +2,4 @@ databaseChangeLog:
 - include:
     file: classpath:db/changelog/001-initial.yaml
 - include:
-    file: classpath:db/changelog/002-load-users.yaml
+    file: classpath:db/changelog/002-load-data.yaml

@@ -18,7 +18,8 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
 import es.juanlsanchez.datask.web.rest.AccountResource;
-import es.juanlsanchez.datask.web.rest.UserJWTController;
+import es.juanlsanchez.datask.web.rest.ProjectResource;
+import es.juanlsanchez.datask.web.rest.UserJWTResource;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -61,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     // Authenticate
     String authenticateUrl =
-        resolve(UserJWTController.SECURITY_URL, UserJWTController.SECURITY_AUTHENTICATE_URL);
+        resolve(UserJWTResource.SECURITY_URL, UserJWTResource.SECURITY_AUTHENTICATE_URL);
 
     http.authorizeRequests().antMatchers(HttpMethod.POST, authenticateUrl).permitAll();
 
@@ -73,6 +74,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, meUrl).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.GET, userDataUrl).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).authenticated();
+
+    // Project
+    String projectUrl = resolve(ProjectResource.SECURITY_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl)
+        .hasAnyAuthority(RolEnum.ADMIN.role(), RolEnum.MANAGER.role());
 
     // Others
     http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);

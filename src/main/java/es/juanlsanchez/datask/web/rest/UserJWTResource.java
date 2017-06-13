@@ -22,10 +22,10 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(UserJWTController.URL)
+@RequestMapping(UserJWTResource.URL)
 @Api(value = "User JWT", tags = "User")
 @Slf4j
-public class UserJWTController {
+public class UserJWTResource {
 
 
   static final String URL = "${spring.application.prefix}${spring.application.version}/user";
@@ -37,7 +37,7 @@ public class UserJWTController {
   private final UserJWTManager userJWTManager;
 
   @Inject
-  public UserJWTController(final UserJWTManager userJWTManager) {
+  public UserJWTResource(final UserJWTManager userJWTManager) {
     this.userJWTManager = userJWTManager;
 
   }
