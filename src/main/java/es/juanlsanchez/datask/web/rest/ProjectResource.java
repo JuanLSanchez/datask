@@ -21,8 +21,11 @@ public class ProjectResource {
 
 
   static final String URL = "${spring.application.prefix}${spring.application.version}/project";
+  private static final String BY_PRINCIPAL = "/by_principal";
 
   public static final String SECURITY_URL = URL;
+  public static final String SECURITY_BY_PRINCIPAL = BY_PRINCIPAL;
+
 
   private final ProjectManager projectManager;
 
@@ -37,6 +40,12 @@ public class ProjectResource {
     return ResponseEntity.ok(projectManager.findAll(q, pageable));
   }
 
+  @RequestMapping(value = BY_PRINCIPAL, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Page<ProjectDTO>> findAllByPrincipal(String q, Pageable pageable) {
+    log.debug("REST to get all project by principal with pageable={} and q='{}'", pageable, q);
 
+    return ResponseEntity.ok(projectManager.findAllByPrincipal(q, pageable));
+  }
 
 }

@@ -4,4 +4,5 @@ id,login,password_hash,activated,creation_moment,company_id
 3,develop01,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2015-06-20 10:10:13,1
 4,develop02,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2016-03-21 10:10:13,1
 5,company01,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,false,2017-06-02 10:10:13,2
-6,company02,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2017-06-03 10:10:13,2
+6,company02,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2017-06-03 10:10:13,3
+7,sesa,$2a$10$cM2m9IWy6NL5j1P0Qg0QjuuByUImPOJMYi2zW5QSReKhWwfdtvTQK,true,2017-06-03 10:10:13,8

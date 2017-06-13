@@ -9,4 +9,6 @@ public interface ProjectManager {
 
   public Page<ProjectDTO> findAll(String q, Pageable pageable);
 
+  public Page<ProjectDTO> findAllByPrincipal(String q, Pageable pageable);
+
 }

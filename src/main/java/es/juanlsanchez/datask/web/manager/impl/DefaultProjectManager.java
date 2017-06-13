@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import es.juanlsanchez.datask.security.SecurityUtils;
 import es.juanlsanchez.datask.service.ProjectService;
 import es.juanlsanchez.datask.web.dto.ProjectDTO;
 import es.juanlsanchez.datask.web.manager.ProjectManager;
@@ -25,6 +26,13 @@ public class DefaultProjectManager implements ProjectManager {
   @Override
   public Page<ProjectDTO> findAll(String q, Pageable pageable) {
     return projectService.findAll(q, pageable)
+        .map(project -> projectDTOMapper.fromProject(project));
+  }
+
+  @Override
+  public Page<ProjectDTO> findAllByPrincipal(String q, Pageable pageable) {
+    String login = SecurityUtils.getCurrentUserLogin();
+    return projectService.findAllByLogin(login, q, pageable)
         .map(project -> projectDTOMapper.fromProject(project));
   }
 

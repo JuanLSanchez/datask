@@ -77,9 +77,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     // Project
     String projectUrl = resolve(ProjectResource.SECURITY_URL);
+    String projectByPrincipal =
+        resolve(ProjectResource.SECURITY_URL, ProjectResource.SECURITY_BY_PRINCIPAL);
 
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl)
         .hasAnyAuthority(RolEnum.ADMIN.role(), RolEnum.MANAGER.role());
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
 
     // Others
     http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);

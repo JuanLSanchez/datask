@@ -9,4 +9,6 @@ public interface ProjectService {
 
   public Page<Project> findAll(String q, Pageable pageable);
 
+  public Page<Project> findAllByLogin(String login, String q, Pageable pageable);
+
 }

@@ -38,3 +38,7 @@ databaseChangeLog:
         encoding: UTF-8
         file: db/changelog/loaddata/project.csv
         tableName: project
+    - loadData:
+        encoding: UTF-8
+        file: db/changelog/loaddata/user_project.csv
+        tableName: user_project
