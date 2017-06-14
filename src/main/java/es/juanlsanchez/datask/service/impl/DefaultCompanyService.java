@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +32,17 @@ public class DefaultCompanyService implements CompanyService {
   private Company getOneByLogin(String login) {
     return this.companyRepository.findOneByUserLogin(login)
         .orElseThrow(() -> new IllegalArgumentException("Not found user company"));
+  }
+
+  @Override
+  public Company getOne(Long id) {
+    return this.findOne(id)
+        .orElseThrow(() -> new IllegalArgumentException("Not found company " + id));
+  }
+
+  @Override
+  public Optional<Company> findOne(Long id) {
+    return Optional.ofNullable(this.companyRepository.findOne(id));
   }
 
 }

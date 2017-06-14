@@ -40,6 +40,17 @@ public class DefaultUserDataService implements UserDataService {
     return this.userDataRepository.findAll(regex, pageable);
   }
 
+  @Override
+  public UserData create(UserData userData) {
+    if (!userData.isNew()) {
+      throw new IllegalArgumentException("The data has been created yet");
+    }
+    if (userData.getUser() == null) {
+      throw new IllegalArgumentException("Data without user");
+    }
+    return this.userDataRepository.save(userData);
+  }
+
 
 
 }

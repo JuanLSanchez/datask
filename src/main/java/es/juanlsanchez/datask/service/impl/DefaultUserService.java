@@ -1,9 +1,10 @@
 package es.juanlsanchez.datask.service.impl;
 
-import javax.inject.Inject;
+import java.time.Instant;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,10 +17,12 @@ import es.juanlsanchez.datask.service.UserService;
 public class DefaultUserService implements UserService {
 
   private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
 
-  @Inject
-  public DefaultUserService(final UserRepository userRepository) {
+  public DefaultUserService(final UserRepository userRepository,
+      final PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
+    this.passwordEncoder = passwordEncoder;
   }
 
   public User getPrincipal() {
@@ -47,6 +50,20 @@ public class DefaultUserService implements UserService {
   public Page<User> findAll(String q, Pageable pageable) {
     String regex = q == null ? null : "%" + q + "%";
     return this.userRepository.findAll(regex, pageable);
+  }
+
+  @Override
+  public User create(User user) {
+    if (!user.isNew()) {
+      throw new IllegalArgumentException("The user has been created yet");
+    }
+    if (this.userRepository.findOneByLogin(user.getLogin()).isPresent()) {
+      throw new IllegalArgumentException("User " + user.getLogin() + " already exists");
+    }
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    user.setCreationMoment(Instant.now());
+
+    return this.userRepository.save(user);
   }
 
 }

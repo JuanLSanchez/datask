@@ -11,4 +11,6 @@ public interface UserDataService {
 
   public Page<UserData> findAll(String q, Pageable pageable);
 
+  public UserData create(UserData userData);
+
 }

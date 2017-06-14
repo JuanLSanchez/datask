@@ -51,4 +51,8 @@ public class UserCreateDTO {
   @JsonProperty("typeUser")
   private EnumUserType typeUser;
 
+  @NotNull
+  @JsonProperty("companyId")
+  private Long companyId;
+
 }

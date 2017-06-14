@@ -7,7 +7,7 @@ import org.mapstruct.Mappings;
 import es.juanlsanchez.datask.domain.UserData;
 import es.juanlsanchez.datask.web.dto.UserDetailsDTO;
 
-@Mapper(componentModel = "spring", uses = StringMapper.class)
+@Mapper(componentModel = "spring", uses = AuthorityMapper.class)
 public interface UserDetailsDTOMapper {
 
   @Mappings({@Mapping(target = "login", source = "user.login"),

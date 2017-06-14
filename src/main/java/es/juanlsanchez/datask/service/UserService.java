@@ -13,4 +13,6 @@ public interface UserService {
 
   public Page<User> findAll(String q, Pageable pageable);
 
+  public User create(User user);
+
 }
