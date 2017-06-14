@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.juanlsanchez.datask.web.dto.UserDTO;
+import es.juanlsanchez.datask.web.dto.UserDetailsDTO;
 import es.juanlsanchez.datask.web.manager.UserManager;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class UserResource {
   }
 
   @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Page<UserDTO>> getPrincipal(String q, Pageable pageable)
+  public ResponseEntity<Page<UserDetailsDTO>> getPrincipal(String q, Pageable pageable)
       throws URISyntaxException {
     log.debug("REST request to list users");
 

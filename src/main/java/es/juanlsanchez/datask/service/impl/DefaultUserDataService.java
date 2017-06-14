@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service.impl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +32,12 @@ public class DefaultUserDataService implements UserDataService {
   private UserData getOneByLogin(String login) {
     return userDataRepository.findOneByUserLogin(login)
         .orElseThrow(() -> new IllegalArgumentException("Not found user data"));
+  }
+
+  @Override
+  public Page<UserData> findAll(String q, Pageable pageable) {
+    String regex = q == null ? null : "%" + q + "%";
+    return this.userDataRepository.findAll(regex, pageable);
   }
 
 
