@@ -22,6 +22,9 @@ public class UserDTO {
   @JsonProperty("login")
   private String login;
 
+  @JsonProperty("activated")
+  private boolean activated;
+
   @JsonProperty("creationMoment")
   private Instant creationMoment;
 
