@@ -13,6 +13,6 @@ import es.juanlsanchez.datask.web.mapper.decorator.UserDTOMapperDecorator;
 public interface UserDTOMapper {
 
   @Mapping(target = "authorities", ignore = true)
-  public UserDTO fromUser(User principal);
+  public UserDTO fromUser(User user);
 
 }

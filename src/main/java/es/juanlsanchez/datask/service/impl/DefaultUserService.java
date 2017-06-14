@@ -2,6 +2,8 @@ package es.juanlsanchez.datask.service.impl;
 
 import javax.inject.Inject;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -39,6 +41,12 @@ public class DefaultUserService implements UserService {
     User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
     user.getAuthorities().size(); // eagerly load the association
     return user;
+  }
+
+  @Override
+  public Page<User> findAll(String q, Pageable pageable) {
+    String regex = q == null ? null : "%" + q + "%";
+    return this.userRepository.findAll(regex, pageable);
   }
 
 }

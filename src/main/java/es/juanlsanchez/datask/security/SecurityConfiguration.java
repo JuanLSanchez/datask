@@ -20,9 +20,13 @@ import es.juanlsanchez.datask.security.jwt.TokenProvider;
 import es.juanlsanchez.datask.web.rest.AccountResource;
 import es.juanlsanchez.datask.web.rest.ProjectResource;
 import es.juanlsanchez.datask.web.rest.UserJWTResource;
+import es.juanlsanchez.datask.web.rest.UserResource;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+  private static final String MANAGER = RolEnum.MANAGER.role();
+  private static final String ADMIN = RolEnum.ADMIN.role();
 
   @Inject
   private UserDetailsService userDetailsService;
@@ -75,13 +79,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, userDataUrl).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).authenticated();
 
+    // User
+    String userUrl = resolve(UserResource.SECURITY_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userUrl).hasAuthority(ADMIN);
+
     // Project
     String projectUrl = resolve(ProjectResource.SECURITY_URL);
     String projectByPrincipal =
         resolve(ProjectResource.SECURITY_URL, ProjectResource.SECURITY_BY_PRINCIPAL);
 
-    http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl)
-        .hasAnyAuthority(RolEnum.ADMIN.role(), RolEnum.MANAGER.role());
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
 
     // Others
