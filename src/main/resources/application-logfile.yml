@@ -1,0 +1,3 @@
+logging:
+  config: classpath:logback-pro.xml
+  path: logs/datask/datask.log
