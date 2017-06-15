@@ -47,4 +47,7 @@ public class UserDetailsDTO {
   @JsonProperty("typeUser")
   private EnumUserType typeUser;
 
+  @JsonProperty("companyId")
+  private Long companyId;
+
 }

@@ -12,4 +12,8 @@ public interface UserManager {
 
   public UserDetailsDTO create(UserCreateDTO user);
 
+  public UserDetailsDTO getOne(Long userId);
+
+  public UserDetailsDTO update(Long userId, UserCreateDTO user);
+
 }

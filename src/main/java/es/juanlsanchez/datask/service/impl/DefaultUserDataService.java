@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service.impl;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,29 @@ public class DefaultUserDataService implements UserDataService {
       throw new IllegalArgumentException("Data without user");
     }
     return this.userDataRepository.save(userData);
+  }
+
+  @Override
+  public UserData getOneByUserId(Long userId) {
+    return this.findOneByUserId(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Not found user " + userId));
+  }
+
+  @Override
+  public UserData update(UserData userData) {
+    if (userData.isNew()) {
+      throw new IllegalArgumentException("The user data is new");
+    }
+    if (userData.getUser() == null) {
+      throw new IllegalArgumentException("Data without user");
+    }
+
+    return this.userDataRepository.save(userData);
+  }
+
+  @Override
+  public Optional<UserData> findOneByUserId(Long userId) {
+    return this.userDataRepository.findOneByUserId(userId);
   }
 
 

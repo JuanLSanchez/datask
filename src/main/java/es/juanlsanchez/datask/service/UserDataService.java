@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,5 +14,11 @@ public interface UserDataService {
   public Page<UserData> findAll(String q, Pageable pageable);
 
   public UserData create(UserData userData);
+
+  public UserData getOneByUserId(Long userId);
+
+  public Optional<UserData> findOneByUserId(Long userId);
+
+  public UserData update(UserData userData);
 
 }

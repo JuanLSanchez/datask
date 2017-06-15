@@ -22,4 +22,6 @@ public interface UserDataRepository extends JpaRepository<UserData, Long> {
       + "userData.surname like :q")
   public Page<UserData> findAll(@Param("q") String regex, Pageable pageable);
 
+  public Optional<UserData> findOneByUserId(Long userId);
+
 }

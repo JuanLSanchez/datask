@@ -2,6 +2,8 @@ package es.juanlsanchez.datask.service.impl;
 
 import java.time.Instant;
 
+import org.mapstruct.ap.internal.util.Strings;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,13 +59,39 @@ public class DefaultUserService implements UserService {
     if (!user.isNew()) {
       throw new IllegalArgumentException("The user has been created yet");
     }
-    if (this.userRepository.findOneByLogin(user.getLogin()).isPresent()) {
-      throw new IllegalArgumentException("User " + user.getLogin() + " already exists");
+    if (Strings.isEmpty(user.getPassword())) {
+      throw new IllegalArgumentException("The password cannot be empty");
     }
+    checkDuplicateLogin(user);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setCreationMoment(Instant.now());
 
     return this.userRepository.save(user);
+  }
+
+  @Override
+  public User update(User user, String newPassword) {
+    if (user.isNew()) {
+      throw new IllegalArgumentException("The user is new");
+    }
+    checkDuplicateLogin(user);
+    if (!Strings.isEmpty(newPassword)) {
+      user.setPassword(passwordEncoder.encode(newPassword));
+    }
+
+    return this.userRepository.save(user);
+  }
+
+  private void checkDuplicateLogin(User user) {
+    String message = "User " + user.getLogin() + " already exists";
+    try {
+      if (this.userRepository.findOneByLogin(user.getLogin())
+          .filter(userLogin -> !userLogin.equals(user)).isPresent()) {
+        throw new IllegalArgumentException(message);
+      }
+    } catch (DataIntegrityViolationException e) {
+      throw new IllegalArgumentException(message);
+    }
   }
 
 }
