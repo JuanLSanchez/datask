@@ -1,5 +1,7 @@
 # Datask
 
+It is a Spring project.
+
 ## Run with docker
 
 You can run this application with docker. For this you should execute the next commands
