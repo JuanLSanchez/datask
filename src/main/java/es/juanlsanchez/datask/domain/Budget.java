@@ -1,144 +1,65 @@
 package es.juanlsanchez.datask.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import es.juanlsanchez.datask.domain.base.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * A Budget.
+ * A budget.
  */
 @Entity
 @Table(name = "budget")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Budget implements Serializable {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class Budget extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+  public static final String C_PROJECT_ID = "project_id";
+  public static final String C_END_DATE = "end_date";
+  public static final String C_START_DATE = "start_date";
+  public static final String C_BILLING_DATE = "billing_date";
+  public static final String C_HOURS = "hours";
+  public static final String C_OWN_AMOUNT = "own_amount";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+  public static final String A_PROJECT = "project";
+  public static final String A_END_DATE = "endDate";
+  public static final String A_START_DATE = "startDate";
+  public static final String A_BILLING_DATE = "billingDate";
+  public static final String A_HOURS = "hours";
+  public static final String A_OWN_AMOUNT = "ownAmount";
 
-    @Column(name = "idd")
-    private Long idd;
+  @Column(name = C_OWN_AMOUNT)
+  private Double ownAmount;
 
-    @Column(name = "own_amount")
-    private Float ownAmount;
+  @Column(name = C_HOURS)
+  private Double hours;
 
-    @Column(name = "hours")
-    private Float hours;
+  @Column(name = C_BILLING_DATE)
+  private LocalDate billingDate;
 
-    @Column(name = "billing_date")
-    private LocalDate billingDate;
+  @Column(name = C_START_DATE)
+  private LocalDate startDate;
 
-    @Column(name = "start_date")
-    private LocalDate startDate;
+  @Column(name = C_END_DATE)
+  private LocalDate endDate;
 
-    @Column(name = "end_date")
-    private LocalDate endDate;
+  // Relationships ----------------------------------------------
 
-    @OneToOne(mappedBy = "budget")
-    @JsonIgnore
-    private Project project;
+  @OneToOne(mappedBy = Project.A_BUDGET)
+  private Project project;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getIdd() {
-        return idd;
-    }
-
-    public void setIdd(Long idd) {
-        this.idd = idd;
-    }
-
-    public Float getOwnAmount() {
-        return ownAmount;
-    }
-
-    public void setOwnAmount(Float ownAmount) {
-        this.ownAmount = ownAmount;
-    }
-
-    public Float getHours() {
-        return hours;
-    }
-
-    public void setHours(Float hours) {
-        this.hours = hours;
-    }
-
-    public LocalDate getBillingDate() {
-        return billingDate;
-    }
-
-    public void setBillingDate(LocalDate billingDate) {
-        this.billingDate = billingDate;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Budget budget = (Budget) o;
-        if(budget.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, budget.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Budget{" +
-            "id=" + id +
-            ", idd='" + idd + "'" +
-            ", ownAmount='" + ownAmount + "'" +
-            ", hours='" + hours + "'" +
-            ", billingDate='" + billingDate + "'" +
-            ", startDate='" + startDate + "'" +
-            ", endDate='" + endDate + "'" +
-            '}';
-    }
 }

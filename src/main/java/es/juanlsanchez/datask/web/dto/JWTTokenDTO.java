@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class JWTTokenDTO {
 
-    @JsonProperty("id_token")
-    private String idToken;
+  @JsonProperty("id_token")
+  private String idToken;
 
 }

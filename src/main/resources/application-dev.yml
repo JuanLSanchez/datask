@@ -4,7 +4,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
       show-sql: true
 app:
   properties:
@@ -24,5 +24,6 @@ logging:
   level:
     root: WARN
     org.springframework.web: INFO
-    org.hibernate: INFO
-    es.juanlsanchez.bm: DEBUG
+    org.springframework.security: INFO
+    org.springframework.data: INFO
+    es.juanlsanchez.datask: DEBUG

@@ -21,6 +21,8 @@ public class AppConfig {
   private final String version = new String();
   @Value("${spring.application.name}")
   private final String name = new String();
+  @Value("${spring.application.prefix}")
+  private final String prefix = new String();
 
   @Getter
   @Setter

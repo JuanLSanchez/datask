@@ -1,11 +1,9 @@
 package es.juanlsanchez.datask.web.dto;
 
 import java.time.Instant;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +16,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
 
-  @NotNull
-  @Size(min = 1, max = 50)
-  @Column(length = 50, unique = true, nullable = false)
+  @JsonProperty("id")
+  private Long id;
+
+  @JsonProperty("login")
   private String login;
 
-  private String surname;
+  @JsonProperty("activated")
+  private boolean activated;
 
-  @Past
+  @JsonProperty("creationMoment")
   private Instant creationMoment;
 
-  @NotNull
-  @Column(nullable = false)
-  private boolean activated;
+  @JsonProperty("authorities")
+  private List<String> authorities;
+
 
 }

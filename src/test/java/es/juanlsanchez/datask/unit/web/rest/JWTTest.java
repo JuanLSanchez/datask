@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.service.UserService;
 import es.juanlsanchez.datask.web.dto.LoginDTO;
-import es.juanlsanchez.datask.web.rest.UserJWTController;
+import es.juanlsanchez.datask.web.rest.UserJWTResource;
 
 /**
  * Test class for the AccountResource REST controller.
@@ -44,7 +44,7 @@ public class JWTTest {
   private static final String BAD_LOGIN = "bad user";
 
   @Inject
-  private UserJWTController userJWTController;
+  private UserJWTResource userJWTController;
 
   private MockMvc mvc;
 

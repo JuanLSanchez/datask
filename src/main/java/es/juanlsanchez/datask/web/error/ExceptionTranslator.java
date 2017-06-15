@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.ConcurrencyFailureException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,6 +37,27 @@ public class ExceptionTranslator {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ResponseBody
   public ErrorDTO IllegalArgumentError(IllegalArgumentException ex) {
+    return new ErrorDTO(ErrorConstants.ERR_ILLEGAL_ARGUMENT, ex.getMessage());
+  }
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public ErrorDTO DataIntegrityViolationError(DataIntegrityViolationException ex) {
+    return new ErrorDTO(ErrorConstants.ERR_ILLEGAL_ARGUMENT, ex.getMessage());
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public ErrorDTO HttpMessageNotReadableError(HttpMessageNotReadableException ex) {
+    return new ErrorDTO(ErrorConstants.ERR_ILLEGAL_ARGUMENT, ex.getMessage());
+  }
+
+  @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public ErrorDTO HttpMediaTypeNotSupportedError(HttpMediaTypeNotSupportedException ex) {
     return new ErrorDTO(ErrorConstants.ERR_ILLEGAL_ARGUMENT, ex.getMessage());
   }
 

@@ -6,18 +6,30 @@ import javax.inject.Inject;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import es.juanlsanchez.datask.manager.AccountManager;
+import es.juanlsanchez.datask.web.dto.CompanyDTO;
 import es.juanlsanchez.datask.web.dto.UserDTO;
+import es.juanlsanchez.datask.web.dto.UserDataDTO;
+import es.juanlsanchez.datask.web.manager.AccountManager;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
-@RequestMapping("/account")
+@RestController
+@RequestMapping(AccountResource.URL)
+@Api(value = "Me", tags = "Account")
 @Slf4j
 public class AccountResource {
+
+  static final String URL = "${spring.application.prefix}${spring.application.version}/account";
+  static final String DATA = "/data";
+  static final String COMPANY = "/company";
+
+  public static final String SECURITY_URL = URL;
+  public static final String SECURITY_DATA = DATA;
+  public static final String SECURITY_COMPANY = COMPANY;
 
   private final AccountManager accountManager;
 
@@ -31,6 +43,22 @@ public class AccountResource {
     log.debug("REST request to get account");
 
     return ResponseEntity.ok(accountManager.getPrincipal());
+  }
+
+  @RequestMapping(value = DATA, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<UserDataDTO> getPrincipalData() throws URISyntaxException {
+    log.debug("REST request to get data");
+
+    return ResponseEntity.ok(accountManager.getPrincipalData());
+  }
+
+  @RequestMapping(value = COMPANY, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CompanyDTO> getPrincipalCompany() throws URISyntaxException {
+    log.debug("REST request to get company");
+
+    return ResponseEntity.ok(accountManager.getPrincipalCompany());
   }
 
 }

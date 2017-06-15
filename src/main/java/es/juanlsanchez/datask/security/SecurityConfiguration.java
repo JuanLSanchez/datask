@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +17,23 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
+import es.juanlsanchez.datask.web.rest.AccountResource;
+import es.juanlsanchez.datask.web.rest.CompanyResource;
+import es.juanlsanchez.datask.web.rest.ProjectResource;
+import es.juanlsanchez.datask.web.rest.UserJWTResource;
+import es.juanlsanchez.datask.web.rest.UserResource;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+  private static final String MANAGER = RolEnum.MANAGER.role();
+  private static final String ADMIN = RolEnum.ADMIN.role();
+
   @Inject
   private UserDetailsService userDetailsService;
+
+  @Inject
+  private Environment env;
 
   @Inject
   private TokenProvider tokenProvider;
@@ -42,13 +54,62 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-    http.authorizeRequests().antMatchers("/api/authenticate").permitAll();
+    // Swagger
+    http.authorizeRequests().antMatchers("/v2/api-docs", "/swagger-resources/**",
+        "/configuration/ui", "/configuration/security", "/swagger-ui.html", "/webjars/**")
+        .permitAll();
+
+    // Health
     http.authorizeRequests().antMatchers("/manage/health").permitAll();
+
+    // JS CORS and options
     http.authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-    http.authorizeRequests().antMatchers("/**").hasAuthority(AuthoritiesConstants.USER);
-    http.authorizeRequests().antMatchers("/**").hasAnyAuthority(AuthoritiesConstants.MANAGE);
-    http.authorizeRequests().antMatchers("/**").hasAuthority(AuthoritiesConstants.ADMIN);
-    http.authorizeRequests().anyRequest().hasAuthority(AuthoritiesConstants.ADMIN);
+
+    // Authenticate
+    String authenticateUrl =
+        resolve(UserJWTResource.SECURITY_URL, UserJWTResource.SECURITY_AUTHENTICATE_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.POST, authenticateUrl).permitAll();
+
+    // Account
+    String meUrl = resolve(AccountResource.SECURITY_URL);
+    String userDataUrl = resolve(AccountResource.SECURITY_URL, AccountResource.SECURITY_DATA);
+    String userCompanyUrl = resolve(AccountResource.SECURITY_URL, AccountResource.SECURITY_COMPANY);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, meUrl).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userDataUrl).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userCompanyUrl).authenticated();
+
+    // User
+    String userUrl = resolve(UserResource.SECURITY_URL);
+    String userId = resolve(UserResource.SECURITY_URL, UserResource.SECURITY_ID);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userUrl).hasAuthority(ADMIN);
+    http.authorizeRequests().antMatchers(HttpMethod.POST, userUrl).hasAuthority(ADMIN);
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userId).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.PUT, userId).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.DELETE, userId).hasAuthority(ADMIN);
+
+    // Company
+    String companyUrl = resolve(CompanyResource.SECURITY_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
+
+    // Project
+    String projectUrl = resolve(ProjectResource.SECURITY_URL);
+    String projectByPrincipal =
+        resolve(ProjectResource.SECURITY_URL, ProjectResource.SECURITY_BY_PRINCIPAL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
+
+    // Others
+    http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);
+
+    http.authorizeRequests().antMatchers("/**").denyAll();
+
     http.apply(securityConfigurerAdapter());
     http.exceptionHandling();
 
@@ -64,5 +125,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   private JWTConfigurer securityConfigurerAdapter() {
     return new JWTConfigurer(tokenProvider);
+  }
+
+  private String resolve(String... text) {
+    String result = "";
+    for (String t : text) {
+      result += this.env.resolvePlaceholders(t);
+    }
+    return result;
   }
 }
