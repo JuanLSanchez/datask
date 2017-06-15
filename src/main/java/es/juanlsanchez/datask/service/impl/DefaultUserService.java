@@ -94,4 +94,9 @@ public class DefaultUserService implements UserService {
     }
   }
 
+  @Override
+  public void delete(User user) {
+    this.userRepository.delete(user);
+  }
+
 }

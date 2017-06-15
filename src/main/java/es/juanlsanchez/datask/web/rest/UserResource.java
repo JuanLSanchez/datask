@@ -74,4 +74,14 @@ public class UserResource {
     return ResponseEntity.ok(userManager.update(userId, user));
   }
 
+  @RequestMapping(value = ID, method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> delete(@PathVariable Long userId) throws URISyntaxException {
+    log.debug("REST request to delete user {}", userId);
+
+    userManager.delete(userId);
+
+    return ResponseEntity.ok().build();
+  }
+
 }

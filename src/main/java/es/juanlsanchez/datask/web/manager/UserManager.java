@@ -16,4 +16,6 @@ public interface UserManager {
 
   public UserDetailsDTO update(Long userId, UserCreateDTO user);
 
+  public void delete(Long userId);
+
 }

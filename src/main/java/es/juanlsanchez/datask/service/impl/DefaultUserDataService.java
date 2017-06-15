@@ -76,6 +76,11 @@ public class DefaultUserDataService implements UserDataService {
     return this.userDataRepository.findOneByUserId(userId);
   }
 
+  @Override
+  public void delete(UserData userData) {
+    this.userDataRepository.delete(userData);
+  }
+
 
 
 }

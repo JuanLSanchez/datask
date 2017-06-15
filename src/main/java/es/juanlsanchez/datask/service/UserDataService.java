@@ -21,4 +21,6 @@ public interface UserDataService {
 
   public UserData update(UserData userData);
 
+  public void delete(UserData userData);
+
 }

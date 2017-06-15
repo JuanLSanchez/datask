@@ -110,6 +110,16 @@ public class DefaultUserManager implements UserManager {
     }
   }
 
+  @Override
+  public void delete(Long userId) {
+    UserData userData = userDataService.getOneByUserId(userId);
+    User user = userData.getUser();
+
+    userDataService.delete(userData);
+    userService.delete(user);
+
+  }
+
 
 
 }
