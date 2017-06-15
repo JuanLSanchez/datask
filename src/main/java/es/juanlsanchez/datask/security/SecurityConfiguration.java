@@ -18,6 +18,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
 import es.juanlsanchez.datask.web.rest.AccountResource;
+import es.juanlsanchez.datask.web.rest.CompanyResource;
 import es.juanlsanchez.datask.web.rest.ProjectResource;
 import es.juanlsanchez.datask.web.rest.UserJWTResource;
 import es.juanlsanchez.datask.web.rest.UserResource;
@@ -73,11 +74,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Account
     String meUrl = resolve(AccountResource.SECURITY_URL);
     String userDataUrl = resolve(AccountResource.SECURITY_URL, AccountResource.SECURITY_DATA);
-    String companyUrl = resolve(AccountResource.SECURITY_URL, AccountResource.SECURITY_COMPANY);
+    String userCompanyUrl = resolve(AccountResource.SECURITY_URL, AccountResource.SECURITY_COMPANY);
 
     http.authorizeRequests().antMatchers(HttpMethod.GET, meUrl).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.GET, userDataUrl).authenticated();
-    http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.GET, userCompanyUrl).authenticated();
 
     // User
     String userUrl = resolve(UserResource.SECURITY_URL);
@@ -88,6 +89,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, userId).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.PUT, userId).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.DELETE, userId).hasAuthority(ADMIN);
+
+    // Company
+    String companyUrl = resolve(CompanyResource.SECURITY_URL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
 
     // Project
     String projectUrl = resolve(ProjectResource.SECURITY_URL);

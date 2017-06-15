@@ -2,6 +2,8 @@ package es.juanlsanchez.datask.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -43,6 +45,12 @@ public class DefaultCompanyService implements CompanyService {
   @Override
   public Optional<Company> findOne(Long id) {
     return Optional.ofNullable(this.companyRepository.findOne(id));
+  }
+
+  @Override
+  public Page<Company> findAll(String q, Pageable pageable) {
+    String regex = q == null ? null : "%" + q + "%";
+    return this.companyRepository.findAll(regex, pageable);
   }
 
 }
