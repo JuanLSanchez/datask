@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<timestamp key="bySecond" datePattern="HH':'mm':'ss" />
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-	<appender name="file"
+	<property name="LOG_FILE"
+		value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}" />
+
+	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${OPENSHIFT_DATA_DIR}/logs/bm.log</file>
-		<append>false</append>
+		<encoder>
+			<pattern>${FILE_LOG_PATTERN}</pattern>
+		</encoder>
+		<file>${LOG_FILE}</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- daily rollover -->
-			<fileNamePattern>${OPENSHIFT_DATA_DIR}/logs/bm.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i</fileNamePattern>
 			<!-- keep 10 days' worth of history -->
 			<maxHistory>10</maxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy
@@ -19,14 +24,9 @@
 			<!-- make sure we dont go above 100MB -->
 			<totalSizeCap>100MB</totalSizeCap>
 		</rollingPolicy>
-		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss}: %-5p: %c - %m%n</pattern>
-		</encoder>
 	</appender>
 
-	<logger name="es.juanlsanchez.bm" level="info" />
-	<root level="warn">
-		<appender-ref ref="file" />
+	<root level="INFO">
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>
-
