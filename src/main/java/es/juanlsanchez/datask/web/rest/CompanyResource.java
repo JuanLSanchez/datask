@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +54,24 @@ public class CompanyResource {
     log.debug("REST request to create company {}", companyCreateDTO);
 
     return ResponseEntity.ok(companyManager.create(companyCreateDTO));
+  }
+
+  @RequestMapping(value = ID, method = RequestMethod.PUT,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CompanyDetailsDTO> update(@PathVariable Long companyId,
+      @Valid @RequestBody CompanyCreateDTO companyCreateDTO) throws URISyntaxException {
+    log.debug("REST request to updte company {} with {}", companyId, companyCreateDTO);
+
+    return ResponseEntity.ok(companyManager.update(companyId, companyCreateDTO));
+  }
+
+  @RequestMapping(value = ID, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CompanyDetailsDTO> getOne(@PathVariable Long companyId)
+      throws URISyntaxException {
+    log.debug("REST request to get company {}", companyId);
+
+    return ResponseEntity.ok(companyManager.getOne(companyId));
   }
 
 

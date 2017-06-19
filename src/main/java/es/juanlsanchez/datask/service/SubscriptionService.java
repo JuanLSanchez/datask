@@ -10,4 +10,6 @@ public interface SubscriptionService {
 
   public Subscription getOneById(Long subscriptionId);
 
+  public Subscription getOneByIdWithoutCompany(Long subscriptionId);
+
 }

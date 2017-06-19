@@ -62,4 +62,13 @@ public class DefaultCompanyService implements CompanyService {
     return this.companyRepository.save(company);
   }
 
+  @Override
+  public Company update(Company company) {
+    if (company.isNew()) {
+      throw new IllegalArgumentException("The company is new ");
+    }
+
+    return this.companyRepository.save(company);
+  }
+
 }

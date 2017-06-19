@@ -44,15 +44,34 @@ public class DefaultCompanyManager implements CompanyManager {
 
     if (companyCreateDTO.getSubscriptionId() != null) {
       Subscription subscription =
-          subscriptionService.getOneById(companyCreateDTO.getSubscriptionId());
-      if (subscription.getCompany() != null) {
-        throw new IllegalArgumentException("The subscription cannot have a company");
-      } else {
-        company.setSubscription(subscription);
-      }
+          subscriptionService.getOneByIdWithoutCompany(companyCreateDTO.getSubscriptionId());
+      company.setSubscription(subscription);
     }
 
     return companyDetailsDTOMapper.fromCompany(companyService.create(company));
+  }
+
+  @Override
+  public CompanyDetailsDTO update(Long companyId, CompanyCreateDTO companyCreateDTO) {
+    Company company = companyService.getOne(companyId);
+    companyCreateDTOMapper.updateCompany(companyCreateDTO, company);
+
+    if (companyCreateDTO.getSubscriptionId() == null) {
+      company.setSubscription(null);
+    } else if (company.getSubscription() == null
+        || !company.getSubscription().getId().equals(companyCreateDTO.getSubscriptionId())) {
+      Subscription subscription =
+          subscriptionService.getOneByIdWithoutCompany(companyCreateDTO.getSubscriptionId());
+      company.setSubscription(subscription);
+
+    }
+
+    return companyDetailsDTOMapper.fromCompany(companyService.update(company));
+  }
+
+  @Override
+  public CompanyDetailsDTO getOne(Long companyId) {
+    return companyDetailsDTOMapper.fromCompany(this.companyService.getOne(companyId));
   }
 
 }

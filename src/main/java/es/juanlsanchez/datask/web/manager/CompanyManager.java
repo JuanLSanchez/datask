@@ -12,4 +12,8 @@ public interface CompanyManager {
 
   public CompanyDetailsDTO create(CompanyCreateDTO companyCreateDTO);
 
+  public CompanyDetailsDTO update(Long companyId, CompanyCreateDTO companyCreateDTO);
+
+  public CompanyDetailsDTO getOne(Long companyId);
+
 }

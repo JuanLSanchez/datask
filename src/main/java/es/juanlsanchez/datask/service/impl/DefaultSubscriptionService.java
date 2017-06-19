@@ -28,4 +28,13 @@ public class DefaultSubscriptionService implements SubscriptionService {
         .orElseThrow(() -> new IllegalArgumentException("Not found subscription"));
   }
 
+  @Override
+  public Subscription getOneByIdWithoutCompany(Long subscriptionId) {
+    Subscription result = this.getOneById(subscriptionId);
+    if (result.getCompany() != null) {
+      throw new IllegalArgumentException("The subscription cannot have a company");
+    }
+    return result;
+  }
+
 }

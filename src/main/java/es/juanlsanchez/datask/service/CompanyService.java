@@ -19,4 +19,6 @@ public interface CompanyService {
 
   public Company create(Company company);
 
+  public Company update(Company company);
+
 }
