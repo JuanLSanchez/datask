@@ -74,5 +74,15 @@ public class CompanyResource {
     return ResponseEntity.ok(companyManager.getOne(companyId));
   }
 
+  @RequestMapping(value = ID, method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> delete(@PathVariable Long companyId) throws URISyntaxException {
+    log.debug("REST request to delete company {}", companyId);
+
+    companyManager.delete(companyId);
+
+    return ResponseEntity.ok().build();
+  }
+
 
 }

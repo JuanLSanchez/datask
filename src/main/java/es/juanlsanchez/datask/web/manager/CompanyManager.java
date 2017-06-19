@@ -16,4 +16,6 @@ public interface CompanyManager {
 
   public CompanyDetailsDTO getOne(Long companyId);
 
+  public void delete(Long companyId);
+
 }

@@ -71,4 +71,9 @@ public class DefaultCompanyService implements CompanyService {
     return this.companyRepository.save(company);
   }
 
+  @Override
+  public void delete(Long companyId) {
+    this.companyRepository.delete(companyId);
+  }
+
 }

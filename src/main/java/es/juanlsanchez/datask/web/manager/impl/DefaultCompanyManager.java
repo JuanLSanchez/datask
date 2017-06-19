@@ -74,4 +74,9 @@ public class DefaultCompanyManager implements CompanyManager {
     return companyDetailsDTOMapper.fromCompany(this.companyService.getOne(companyId));
   }
 
+  @Override
+  public void delete(Long companyId) {
+    this.companyService.delete(companyId);
+  }
+
 }

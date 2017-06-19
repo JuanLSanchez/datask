@@ -21,4 +21,6 @@ public interface CompanyService {
 
   public Company update(Company company);
 
+  public void delete(Long companyId);
+
 }

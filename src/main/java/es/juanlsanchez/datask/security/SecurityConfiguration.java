@@ -92,8 +92,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     // Company
     String companyUrl = resolve(CompanyResource.SECURITY_URL);
+    String companyId = resolve(CompanyResource.SECURITY_URL, CompanyResource.SECURITY_ID);
 
     http.authorizeRequests().antMatchers(HttpMethod.GET, companyUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.POST, companyUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.GET, companyId).hasAnyAuthority(ADMIN, MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.PUT, companyId).hasAnyAuthority(ADMIN, MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.DELETE, companyId).hasAnyAuthority(ADMIN,
         MANAGER);
 
     // Project
