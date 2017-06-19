@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.web.dto;
 
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import es.juanlsanchez.datask.domain.enumeration.EnumCompanyType;
@@ -12,14 +14,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyDetailsDTO {
+public class CompanyCreateDTO {
 
   @JsonProperty("id")
   private Long id;
 
+  @Size(min = 1, max = 100)
   @JsonProperty("name")
   private String name;
 
+  @Size(max = 240)
   @JsonProperty("address")
   private String address;
 

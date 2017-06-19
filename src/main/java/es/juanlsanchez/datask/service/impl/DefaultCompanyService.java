@@ -53,4 +53,13 @@ public class DefaultCompanyService implements CompanyService {
     return this.companyRepository.findAll(regex, pageable);
   }
 
+  @Override
+  public Company create(Company company) {
+    if (!company.isNew()) {
+      throw new IllegalArgumentException("The company has been created yet");
+    }
+
+    return this.companyRepository.save(company);
+  }
+
 }

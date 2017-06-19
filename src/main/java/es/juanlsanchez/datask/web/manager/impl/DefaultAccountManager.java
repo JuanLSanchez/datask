@@ -41,7 +41,7 @@ public class DefaultAccountManager implements AccountManager {
 
   @Override
   public UserDTO getPrincipal() {
-    return this.userDTOMapper.fromUser(this.userService.getPrincipal());
+    return this.userDTOMapper.fromUser(this.userService.getOneByPrincipal());
   }
 
   @Override

@@ -17,4 +17,6 @@ public interface CompanyService {
 
   public Page<Company> findAll(String q, Pageable pageable);
 
+  public Company create(Company company);
+
 }

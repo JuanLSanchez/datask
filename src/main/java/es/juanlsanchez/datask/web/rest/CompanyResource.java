@@ -2,14 +2,18 @@ package es.juanlsanchez.datask.web.rest;
 
 import java.net.URISyntaxException;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.juanlsanchez.datask.web.dto.CompanyCreateDTO;
 import es.juanlsanchez.datask.web.dto.CompanyDetailsDTO;
 import es.juanlsanchez.datask.web.manager.CompanyManager;
 import io.swagger.annotations.Api;
@@ -41,6 +45,14 @@ public class CompanyResource {
     log.debug("REST request to list company");
 
     return ResponseEntity.ok(companyManager.findAll(q, pageable));
+  }
+
+  @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CompanyDetailsDTO> create(
+      @Valid @RequestBody CompanyCreateDTO companyCreateDTO) throws URISyntaxException {
+    log.debug("REST request to create company {}", companyCreateDTO);
+
+    return ResponseEntity.ok(companyManager.create(companyCreateDTO));
   }
 
 

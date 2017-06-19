@@ -1,6 +1,7 @@
 package es.juanlsanchez.datask.service.impl;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -27,13 +28,20 @@ public class DefaultUserService implements UserService {
     this.passwordEncoder = passwordEncoder;
   }
 
-  public User getPrincipal() {
+  @Override
+  public User getOneByPrincipal() {
+    return this.findOneByPrincipal()
+        .orElseThrow(() -> new IllegalArgumentException("Not found principal"));
+  }
+
+  @Override
+  public Optional<User> findOneByPrincipal() {
     User result = null;
     String login = SecurityUtils.getCurrentUserLogin();
     if (!StringUtils.isEmpty(login)) {
       result = getOneByLogin(login);
     }
-    return result;
+    return Optional.ofNullable(result);
   }
 
   private User getOneByLogin(String login) {
