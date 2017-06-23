@@ -111,6 +111,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl).hasAnyAuthority(ADMIN,
         MANAGER);
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.POST, projectUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
 
     // Others
     http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);

@@ -12,7 +12,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectDTO {
+public class ProjectDetailsDTO {
+
+  @JsonProperty("id")
+  private Long id;
 
   @JsonProperty("name")
   private String name;
