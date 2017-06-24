@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +17,9 @@ public interface ProjectService {
   public Project create(Project project, User manager);
 
   public Project update(Project project);
+
+  public Project getOneByPrincipal(User principal, Long projectId);
+
+  public Optional<Project> findOneByPrincipal(User principal, Long projectId);
 
 }

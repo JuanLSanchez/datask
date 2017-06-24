@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service.impl;
 
+import java.util.Optional;
+
 import org.mapstruct.ap.internal.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,19 +62,35 @@ public class DefaultProjectService implements ProjectService {
 
   @Override
   public Project update(Project project) {
+    if (project.isNew()) {
+      throw new IllegalArgumentException("The project is new");
+    }
     checkProject(project);
-    // TODO Auto-generated method stub
-    return null;
+    return projectRepository.save(project);
   }
 
   private void checkProject(Project project) {
     if (project.getUserProject().size() < 0) {
       throw new IllegalArgumentException("Project without user");
     }
-    if (project.getUserProject().stream()
+    if (!project.getUserProject().stream()
         .anyMatch(userProject -> userProject.getRelationType().equals(EnumProjectUser.MANAGER))) {
       throw new IllegalArgumentException("Project without user manager");
     }
+  }
+
+  @Override
+  public Project getOneByPrincipal(User principal, Long projectId) {
+    return findOneByPrincipal(principal, projectId)
+        .orElseThrow(() -> new IllegalArgumentException("Not found project"));
+  }
+
+  @Override
+  public Optional<Project> findOneByPrincipal(User principal, Long projectId) {
+    return Optional.ofNullable(this.projectRepository.findOneFetchUserProject(projectId))
+        .filter(project -> project.getUserProject().stream()
+            .anyMatch(userProject -> userProject.getRelationType().equals(EnumProjectUser.MANAGER)
+                && userProject.getUser().equals(principal)));
   }
 
 }

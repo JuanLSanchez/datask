@@ -18,6 +18,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import es.juanlsanchez.datask.security.jwt.JWTConfigurer;
 import es.juanlsanchez.datask.security.jwt.TokenProvider;
 import es.juanlsanchez.datask.web.rest.AccountResource;
+import es.juanlsanchez.datask.web.rest.BudgetResource;
 import es.juanlsanchez.datask.web.rest.CompanyResource;
 import es.juanlsanchez.datask.web.rest.ProjectResource;
 import es.juanlsanchez.datask.web.rest.UserJWTResource;
@@ -113,6 +114,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.POST, projectUrl).hasAnyAuthority(ADMIN,
         MANAGER);
+
+    // Budget
+    String budgetUrl = resolve(BudgetResource.SECURITY_URL);
+    String budgetByPrincipal =
+        resolve(BudgetResource.SECURITY_URL, BudgetResource.SECURITY_BY_PRINCIPAL);
+
+    http.authorizeRequests().antMatchers(HttpMethod.GET, budgetUrl).hasAnyAuthority(ADMIN, MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.POST, budgetUrl).hasAnyAuthority(ADMIN,
+        MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.GET, budgetByPrincipal).hasAnyAuthority(ADMIN,
+        MANAGER);
+
 
     // Others
     http.authorizeRequests().anyRequest().hasAuthority(RolEnum.Roles.ADMIN);

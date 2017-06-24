@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.NestedServletException;
 
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
+@Slf4j
 public class ExceptionTranslator {
 
   @ExceptionHandler(NestedServletException.class)
@@ -131,6 +133,7 @@ public class ExceptionTranslator {
       builder = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
       errorDTO = new ErrorDTO(ErrorConstants.ERR_INTERNAL_SERVER_ERROR, "Internal server error");
     }
+    log.error("Unexpected error:", ex);
     return builder.body(errorDTO);
   }
 }

@@ -28,7 +28,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
+@ToString(of = {"id", "login", "password", "creationMoment", "activated"})
 @Table(name = "user_api")
 public class User extends BaseEntity {
 
