@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import es.juanlsanchez.datask.domain.Budget;
 import es.juanlsanchez.datask.domain.Project;
 import es.juanlsanchez.datask.domain.User;
+import es.juanlsanchez.datask.security.RolEnum;
+import es.juanlsanchez.datask.security.SecurityUtils;
 import es.juanlsanchez.datask.service.BudgetService;
 import es.juanlsanchez.datask.service.ProjectService;
 import es.juanlsanchez.datask.service.UserService;
@@ -66,6 +68,22 @@ public class DefaultBudgetManager implements BudgetManager {
     }
 
     return budgetDetailsDTOMapper.fromBudget(budget);
+  }
+
+  @Override
+  public Page<BudgetDetailsDTO> findAllByProject(Long projectId, Pageable pageable) {
+    Project project;
+
+    User principal = userService.getOneByPrincipal();
+
+    if (SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
+      project = projectService.getOne(projectId);
+    } else {
+      project = projectService.getOneByPrincipal(principal, projectId);
+    }
+
+    return this.budgetService.findAllByProjectId(project.getId(), pageable)
+        .map(budget -> budgetDetailsDTOMapper.fromBudget(budget));
   }
 
 }

@@ -14,4 +14,6 @@ public interface BudgetService {
 
   public Budget create(Budget budget);
 
+  public Page<Budget> findAllByProjectId(Long projectId, Pageable pageable);
+
 }

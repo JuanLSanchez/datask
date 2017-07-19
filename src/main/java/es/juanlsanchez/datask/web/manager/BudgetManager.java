@@ -14,4 +14,6 @@ public interface BudgetManager {
 
   public BudgetDetailsDTO create(BudgetCreateDTO budgetCreateDTO);
 
+  public Page<BudgetDetailsDTO> findAllByProject(Long projectId, Pageable pageable);
+
 }

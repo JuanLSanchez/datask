@@ -18,5 +18,7 @@ public interface BudgetRepository extends JpaRepository<Budget, Long> {
       + "where userProject.user = :principal")
   public Page<Budget> findAllByPrincipal(@Param("principal") User principal, Pageable pageable);
 
+  public Page<Budget> findAllByProjectId(Long projectId, Pageable pageable);
+
 
 }

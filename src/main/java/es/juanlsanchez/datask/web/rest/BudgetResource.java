@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,9 +28,14 @@ public class BudgetResource {
 
   static final String URL = "${spring.application.prefix}${spring.application.version}/budget";
   private static final String BY_PRINCIPAL = "/by_principal";
+  private static final String ID_PROJECT_PARAM = "{projectId}";
+  private static final String BY_PROJECT = "/by_project/id/" + ID_PROJECT_PARAM;
 
+  public static final CharSequence SECURITY_ID_PARAM = "{\\d+}";
   public static final String SECURITY_URL = URL;
   public static final String SECURITY_BY_PRINCIPAL = BY_PRINCIPAL;
+  public static final String SECURITY_BY_PROJECT =
+      BY_PROJECT.replace(ID_PROJECT_PARAM, SECURITY_ID_PARAM);
 
 
   private final BudgetManager budgetManager;
@@ -43,6 +49,15 @@ public class BudgetResource {
     log.debug("REST to get all budget with pageable={}", pageable);
 
     return ResponseEntity.ok(budgetManager.findAll(pageable));
+  }
+
+  @RequestMapping(value = BY_PROJECT, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Page<BudgetDetailsDTO>> findAllByProject(@PathVariable Long projectId,
+      Pageable pageable) {
+    log.debug("REST to get all budget from project {} with pageable={}", projectId, pageable);
+
+    return ResponseEntity.ok(budgetManager.findAllByProject(projectId, pageable));
   }
 
   @RequestMapping(value = BY_PRINCIPAL, method = RequestMethod.GET,

@@ -44,4 +44,9 @@ public class DefaultBudgetService implements BudgetService {
     }
   }
 
+  @Override
+  public Page<Budget> findAllByProjectId(Long projectId, Pageable pageable) {
+    return this.budgetRepository.findAllByProjectId(projectId, pageable);
+  }
+
 }
