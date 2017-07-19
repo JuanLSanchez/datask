@@ -16,4 +16,6 @@ public interface ProjectManager {
 
   public ProjectDetailsDTO getOne(Long projectId);
 
+  public ProjectDetailsDTO update(ProjectCreateDTO projectCreateDTO, Long projectId);
+
 }

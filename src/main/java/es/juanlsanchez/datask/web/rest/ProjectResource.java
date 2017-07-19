@@ -76,4 +76,13 @@ public class ProjectResource {
     return ResponseEntity.ok(projectManager.getOne(projectId));
   }
 
+  @RequestMapping(value = ID, method = RequestMethod.PUT,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ProjectDetailsDTO> update(@PathVariable Long projectId,
+      @RequestBody ProjectCreateDTO projectCreateDTO) throws URISyntaxException {
+    log.debug("REST request to update project {}", projectId);
+
+    return ResponseEntity.ok(projectManager.update(projectCreateDTO, projectId));
+  }
+
 }

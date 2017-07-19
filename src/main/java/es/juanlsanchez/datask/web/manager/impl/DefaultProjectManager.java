@@ -57,6 +57,24 @@ public class DefaultProjectManager implements ProjectManager {
   public ProjectDetailsDTO getOne(Long projectId) {
     Project project;
 
+    project = getOneByPrincipal(projectId);
+
+    return projectDetailsDTOMapper.fromProject(project);
+  }
+
+  @Override
+  public ProjectDetailsDTO update(ProjectCreateDTO projectCreateDTO, Long projectId) {
+    Project project = getOneByPrincipal(projectId);
+
+    projectCreateDTOMapper.update(projectCreateDTO, project);
+
+    return projectDetailsDTOMapper.fromProject(this.projectService.update(project));
+  }
+
+  // Utilities ----------------------------------------------------
+
+  private Project getOneByPrincipal(Long projectId) {
+    Project project;
     User principal = userService.getOneByPrincipal();
 
     if (SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
@@ -64,8 +82,7 @@ public class DefaultProjectManager implements ProjectManager {
     } else {
       project = projectService.getOneByPrincipal(principal, projectId);
     }
-
-    return projectDetailsDTOMapper.fromProject(project);
+    return project;
   }
 
 }

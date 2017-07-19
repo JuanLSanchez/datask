@@ -115,7 +115,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.POST, projectUrl).hasAnyAuthority(ADMIN,
         MANAGER);
-    http.authorizeRequests().antMatchers(HttpMethod.GET, projectId).authenticated();
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectId).hasAnyAuthority(ADMIN, MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.PUT, projectId).hasAnyAuthority(ADMIN, MANAGER);
 
     // Budget
     String budgetUrl = resolve(BudgetResource.SECURITY_URL);
