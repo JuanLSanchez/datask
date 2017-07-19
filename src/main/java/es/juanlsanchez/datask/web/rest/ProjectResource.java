@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,9 +29,13 @@ public class ProjectResource {
 
   static final String URL = "${spring.application.prefix}${spring.application.version}/project";
   private static final String BY_PRINCIPAL = "/by_principal";
+  private static final String ID_PARAM = "{projectId}";
+  private static final String ID = "/id/" + ID_PARAM;
 
   public static final String SECURITY_URL = URL;
   public static final String SECURITY_BY_PRINCIPAL = BY_PRINCIPAL;
+  static final CharSequence SECURITY_ID_PARAM = "{\\d+}";
+  public static final String SECURITY_ID = ID.replace(ID_PARAM, SECURITY_ID_PARAM);
 
 
   private final ProjectManager projectManager;
@@ -60,6 +65,15 @@ public class ProjectResource {
     log.debug("REST request to create project {}", projectCreateDTO);
 
     return ResponseEntity.ok(projectManager.create(projectCreateDTO));
+  }
+
+  @RequestMapping(value = ID, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ProjectDetailsDTO> getOne(@PathVariable Long projectId)
+      throws URISyntaxException {
+    log.debug("REST request to get project {}", projectId);
+
+    return ResponseEntity.ok(projectManager.getOne(projectId));
   }
 
 }

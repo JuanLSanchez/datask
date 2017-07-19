@@ -22,4 +22,8 @@ public interface ProjectService {
 
   public Optional<Project> findOneByPrincipal(User principal, Long projectId);
 
+  public Project getOne(Long projectId);
+
+  public Optional<Project> findOne(Long projectId);
+
 }

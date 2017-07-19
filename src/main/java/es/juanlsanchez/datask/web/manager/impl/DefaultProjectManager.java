@@ -4,6 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import es.juanlsanchez.datask.domain.Project;
+import es.juanlsanchez.datask.domain.User;
+import es.juanlsanchez.datask.security.RolEnum;
 import es.juanlsanchez.datask.security.SecurityUtils;
 import es.juanlsanchez.datask.service.ProjectService;
 import es.juanlsanchez.datask.service.UserService;
@@ -48,6 +51,21 @@ public class DefaultProjectManager implements ProjectManager {
   public ProjectDetailsDTO create(ProjectCreateDTO projectCreateDTO) {
     return projectDetailsDTOMapper.fromProject(projectService.create(
         projectCreateDTOMapper.toProject(projectCreateDTO), userService.getOneByPrincipal()));
+  }
+
+  @Override
+  public ProjectDetailsDTO getOne(Long projectId) {
+    Project project;
+
+    User principal = userService.getOneByPrincipal();
+
+    if (SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
+      project = projectService.getOne(projectId);
+    } else {
+      project = projectService.getOneByPrincipal(principal, projectId);
+    }
+
+    return projectDetailsDTOMapper.fromProject(project);
   }
 
 }

@@ -93,4 +93,15 @@ public class DefaultProjectService implements ProjectService {
                 && userProject.getUser().equals(principal)));
   }
 
+  @Override
+  public Project getOne(Long projectId) {
+    return this.findOne(projectId)
+        .orElseThrow(() -> new IllegalArgumentException("Not found project " + projectId));
+  }
+
+  @Override
+  public Optional<Project> findOne(Long projectId) {
+    return Optional.ofNullable(this.projectRepository.findOne(projectId));
+  }
+
 }

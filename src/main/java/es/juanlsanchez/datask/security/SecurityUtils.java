@@ -1,6 +1,8 @@
 package es.juanlsanchez.datask.security;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -72,6 +74,30 @@ public final class SecurityUtils {
       if (authentication.getPrincipal() instanceof UserDetails) {
         UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
         return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority(authority));
+      }
+    }
+    return false;
+  }
+
+  /**
+   * If the current user has a specific authority (security role).
+   *
+   * <p>
+   * The name of this method comes from the isUserInRole() method in the Servlet API
+   * </p>
+   *
+   * @param authority the authority to check
+   * @return true if the current user has the authority, false otherwise
+   */
+  public static boolean isCurrentUserInAnyRoles(String... authority) {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    Authentication authentication = securityContext.getAuthentication();
+    final List<String> authorities = Arrays.asList(authority);
+    if (authentication != null) {
+      if (authentication.getPrincipal() instanceof UserDetails) {
+        UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+        return springSecurityUser.getAuthorities().stream()
+            .anyMatch(a -> authorities.contains(a.getAuthority()));
       }
     }
     return false;

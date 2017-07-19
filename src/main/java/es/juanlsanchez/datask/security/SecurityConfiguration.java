@@ -108,12 +108,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     String projectUrl = resolve(ProjectResource.SECURITY_URL);
     String projectByPrincipal =
         resolve(ProjectResource.SECURITY_URL, ProjectResource.SECURITY_BY_PRINCIPAL);
+    String projectId = resolve(ProjectResource.SECURITY_URL, ProjectResource.SECURITY_ID);
 
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectUrl).hasAnyAuthority(ADMIN,
         MANAGER);
     http.authorizeRequests().antMatchers(HttpMethod.GET, projectByPrincipal).authenticated();
     http.authorizeRequests().antMatchers(HttpMethod.POST, projectUrl).hasAnyAuthority(ADMIN,
         MANAGER);
+    http.authorizeRequests().antMatchers(HttpMethod.GET, projectId).authenticated();
 
     // Budget
     String budgetUrl = resolve(BudgetResource.SECURITY_URL);
