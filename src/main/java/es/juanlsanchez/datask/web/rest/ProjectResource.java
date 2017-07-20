@@ -85,4 +85,12 @@ public class ProjectResource {
     return ResponseEntity.ok(projectManager.update(projectCreateDTO, projectId));
   }
 
+  @RequestMapping(value = ID, method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> delete(@PathVariable Long projectId) throws URISyntaxException {
+    log.debug("REST request to delete project {}", projectId);
+    projectManager.delete(projectId);
+    return ResponseEntity.ok().build();
+  }
+
 }

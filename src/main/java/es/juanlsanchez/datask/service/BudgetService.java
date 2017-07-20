@@ -24,4 +24,6 @@ public interface BudgetService {
 
   public Budget update(Budget budget);
 
+  public void delete(Long id);
+
 }

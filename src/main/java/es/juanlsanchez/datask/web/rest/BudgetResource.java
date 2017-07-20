@@ -97,4 +97,12 @@ public class BudgetResource {
     return ResponseEntity.ok(budgetManager.update(budgetCreateDTO, budgetId));
   }
 
+  @RequestMapping(value = ID, method = RequestMethod.DELETE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> delete(@PathVariable Long budgetId) throws URISyntaxException {
+    log.debug("REST request to delete budget {}", budgetId);
+    budgetManager.delete(budgetId);
+    return ResponseEntity.ok().build();
+  }
+
 }

@@ -71,6 +71,12 @@ public class DefaultProjectManager implements ProjectManager {
     return projectDetailsDTOMapper.fromProject(this.projectService.update(project));
   }
 
+  @Override
+  public void delete(Long projectId) {
+    Project project = this.getOneByPrincipal(projectId);
+    this.projectService.delete(project.getId());
+  }
+
   // Utilities ----------------------------------------------------
 
   private Project getOneByPrincipal(Long projectId) {

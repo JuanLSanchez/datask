@@ -104,4 +104,9 @@ public class DefaultProjectService implements ProjectService {
     return Optional.ofNullable(this.projectRepository.findOne(projectId));
   }
 
+  @Override
+  public void delete(Long id) {
+    this.projectRepository.delete(id);
+  }
+
 }

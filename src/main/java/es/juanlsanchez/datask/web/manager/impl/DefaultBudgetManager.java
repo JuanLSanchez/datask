@@ -84,12 +84,7 @@ public class DefaultBudgetManager implements BudgetManager {
   public BudgetDetailsDTO getOne(Long budgetId) {
     Budget budget;
 
-    User principal = userService.getOneByPrincipal();
-
-    budget = budgetService.getOne(budgetId);
-    if (!SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
-      projectService.getOneByPrincipal(principal, budget.getProject().getId());
-    }
+    budget = findOneByPrincipal(budgetId);
 
     return budgetDetailsDTOMapper.fromBudget(budget);
   }
@@ -114,8 +109,28 @@ public class DefaultBudgetManager implements BudgetManager {
     return budgetDetailsDTOMapper.fromBudget(budgetService.update(budget));
   }
 
+  @Override
+  public void delete(Long budgetId) {
+    Budget budget = findOneByPrincipal(budgetId);
+
+    this.budgetService.delete(budget.getId());
+
+  }
 
   // Utilities ---------------------------------
+
+  private Budget findOneByPrincipal(Long budgetId) {
+    Budget budget;
+    User principal = userService.getOneByPrincipal();
+
+    budget = budgetService.getOne(budgetId);
+    if (!SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())
+        && budget.getProject() != null) {
+      projectService.getOneByPrincipal(principal, budget.getProject().getId());
+    }
+    return budget;
+  }
+
   private Project findOneProjectByPrincipal(Long projectId) {
     Project project;
     User principal = userService.getOneByPrincipal();

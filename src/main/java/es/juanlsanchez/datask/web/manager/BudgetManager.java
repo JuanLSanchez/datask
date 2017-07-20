@@ -20,4 +20,6 @@ public interface BudgetManager {
 
   public BudgetDetailsDTO update(BudgetCreateDTO budgetCreateDTO, Long budgetId);
 
+  public void delete(Long budgetId);
+
 }

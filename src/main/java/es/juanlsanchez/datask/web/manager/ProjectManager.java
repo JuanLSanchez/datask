@@ -18,4 +18,6 @@ public interface ProjectManager {
 
   public ProjectDetailsDTO update(ProjectCreateDTO projectCreateDTO, Long projectId);
 
+  public void delete(Long projectId);
+
 }

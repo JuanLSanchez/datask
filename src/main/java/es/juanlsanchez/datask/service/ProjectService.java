@@ -26,4 +26,6 @@ public interface ProjectService {
 
   public Optional<Project> findOne(Long projectId);
 
+  public void delete(Long id);
+
 }

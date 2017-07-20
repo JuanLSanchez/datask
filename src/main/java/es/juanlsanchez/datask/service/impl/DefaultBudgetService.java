@@ -65,6 +65,11 @@ public class DefaultBudgetService implements BudgetService {
     return this.budgetRepository.save(budget);
   }
 
+  @Override
+  public void delete(Long id) {
+    this.budgetRepository.delete(id);
+  }
+
 
   // Utilities -------------------------
   private void checkBudget(Budget budget) {
