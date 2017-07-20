@@ -64,6 +64,7 @@ public class Panel extends BaseEntity {
   // Relationships ----------------------------------------------
 
   @OneToMany(mappedBy = Task.A_PANEL)
+  @Builder.Default
   private Set<Task> tasks = new HashSet<>();
 
   @ManyToOne

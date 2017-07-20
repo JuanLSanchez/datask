@@ -74,6 +74,50 @@ public class DefaultBudgetManager implements BudgetManager {
   public Page<BudgetDetailsDTO> findAllByProject(Long projectId, Pageable pageable) {
     Project project;
 
+    project = findOneProjectByPrincipal(projectId);
+
+    return this.budgetService.findAllByProjectId(project.getId(), pageable)
+        .map(budget -> budgetDetailsDTOMapper.fromBudget(budget));
+  }
+
+  @Override
+  public BudgetDetailsDTO getOne(Long budgetId) {
+    Budget budget;
+
+    User principal = userService.getOneByPrincipal();
+
+    budget = budgetService.getOne(budgetId);
+    if (!SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
+      projectService.getOneByPrincipal(principal, budget.getProject().getId());
+    }
+
+    return budgetDetailsDTOMapper.fromBudget(budget);
+  }
+
+  @Override
+  public BudgetDetailsDTO update(BudgetCreateDTO budgetCreateDTO, Long budgetId) {
+    Budget budget;
+
+    User principal = userService.getOneByPrincipal();
+
+    budget = budgetService.getOne(budgetId);
+    if (!SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
+      if (budget.getProject() != null) {
+        projectService.getOneByPrincipal(principal, budget.getProject().getId());
+      }
+      if (budgetCreateDTO.getProjectId() != null) {
+        projectService.getOneByPrincipal(principal, budgetCreateDTO.getProjectId());
+      }
+    }
+    budgetCreateDTOMapper.update(budgetCreateDTO, budget);
+
+    return budgetDetailsDTOMapper.fromBudget(budgetService.update(budget));
+  }
+
+
+  // Utilities ---------------------------------
+  private Project findOneProjectByPrincipal(Long projectId) {
+    Project project;
     User principal = userService.getOneByPrincipal();
 
     if (SecurityUtils.isCurrentUserInAnyRoles(RolEnum.ADMIN.role(), RolEnum.MANAGER.role())) {
@@ -81,9 +125,7 @@ public class DefaultBudgetManager implements BudgetManager {
     } else {
       project = projectService.getOneByPrincipal(principal, projectId);
     }
-
-    return this.budgetService.findAllByProjectId(project.getId(), pageable)
-        .map(budget -> budgetDetailsDTOMapper.fromBudget(budget));
+    return project;
   }
 
 }

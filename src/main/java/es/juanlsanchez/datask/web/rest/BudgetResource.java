@@ -30,12 +30,15 @@ public class BudgetResource {
   private static final String BY_PRINCIPAL = "/by_principal";
   private static final String ID_PROJECT_PARAM = "{projectId}";
   private static final String BY_PROJECT = "/by_project/id/" + ID_PROJECT_PARAM;
+  private static final String ID_PARAM = "{budgetId}";
+  private static final String ID = "/id/" + ID_PARAM;
 
   public static final CharSequence SECURITY_ID_PARAM = "{\\d+}";
   public static final String SECURITY_URL = URL;
   public static final String SECURITY_BY_PRINCIPAL = BY_PRINCIPAL;
   public static final String SECURITY_BY_PROJECT =
       BY_PROJECT.replace(ID_PROJECT_PARAM, SECURITY_ID_PARAM);
+  public static final String SECURITY_ID = ID.replace(ID_PARAM, SECURITY_ID_PARAM);
 
 
   private final BudgetManager budgetManager;
@@ -74,6 +77,24 @@ public class BudgetResource {
     log.debug("REST request to create budget {}", budgetCreateDTO);
 
     return ResponseEntity.ok(budgetManager.create(budgetCreateDTO));
+  }
+
+  @RequestMapping(value = ID, method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<BudgetDetailsDTO> getOne(@PathVariable Long budgetId)
+      throws URISyntaxException {
+    log.debug("REST request to get budget {}", budgetId);
+
+    return ResponseEntity.ok(budgetManager.getOne(budgetId));
+  }
+
+  @RequestMapping(value = ID, method = RequestMethod.PUT,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<BudgetDetailsDTO> update(@PathVariable Long budgetId,
+      @Valid @RequestBody BudgetCreateDTO budgetCreateDTO) throws URISyntaxException {
+    log.debug("REST request to update budget{}", budgetId);
+
+    return ResponseEntity.ok(budgetManager.update(budgetCreateDTO, budgetId));
   }
 
 }

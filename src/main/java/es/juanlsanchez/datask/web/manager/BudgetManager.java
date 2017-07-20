@@ -16,4 +16,8 @@ public interface BudgetManager {
 
   public Page<BudgetDetailsDTO> findAllByProject(Long projectId, Pageable pageable);
 
+  public BudgetDetailsDTO getOne(Long budgetId);
+
+  public BudgetDetailsDTO update(BudgetCreateDTO budgetCreateDTO, Long budgetId);
+
 }

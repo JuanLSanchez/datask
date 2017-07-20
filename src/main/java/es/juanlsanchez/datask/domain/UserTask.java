@@ -27,9 +27,11 @@ public class UserTask extends BaseEntity {
   public static final String A_TASK = "task";
 
   @Column(name = "faouvorite")
+  @Builder.Default
   private boolean faouvorite = false;
 
   @Column(name = "assigned")
+  @Builder.Default
   private boolean assigned = false;
 
   // Relationships ----------------------------------------------

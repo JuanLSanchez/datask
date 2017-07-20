@@ -66,6 +66,7 @@ public class Comment extends BaseEntity {
   private Comment origin;
 
   @OneToMany(mappedBy = Notification.A_COMMENT)
+  @Builder.Default
   private Set<Notification> notifications = new HashSet<>();
 
   @ManyToOne

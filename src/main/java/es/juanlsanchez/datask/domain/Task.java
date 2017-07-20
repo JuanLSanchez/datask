@@ -77,14 +77,17 @@ public class Task extends BaseEntity {
 
   @OneToMany(mappedBy = Time.A_TASK)
   @JsonIgnore
+  @Builder.Default
   private Set<Time> times = new HashSet<>();
 
   @OneToMany(mappedBy = Comment.A_TASK)
   @JsonIgnore
+  @Builder.Default
   private Set<Comment> comments = new HashSet<>();
 
   @OneToMany(mappedBy = Notification.A_TASK)
   @JsonIgnore
+  @Builder.Default
   private Set<Notification> notifications = new HashSet<>();
 
   @ManyToOne

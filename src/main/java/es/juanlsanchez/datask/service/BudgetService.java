@@ -1,5 +1,7 @@
 package es.juanlsanchez.datask.service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,5 +17,11 @@ public interface BudgetService {
   public Budget create(Budget budget);
 
   public Page<Budget> findAllByProjectId(Long projectId, Pageable pageable);
+
+  public Budget getOne(Long budgetId);
+
+  public Optional<Budget> findOne(Long budgetId);
+
+  public Budget update(Budget budget);
 
 }

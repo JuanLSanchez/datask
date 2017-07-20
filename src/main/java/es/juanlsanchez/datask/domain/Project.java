@@ -51,6 +51,7 @@ public class Project extends BaseEntity {
   // Relationships ----------------------------------------------
 
   @OneToMany(mappedBy = Panel.A_PROJECT)
+  @Builder.Default
   private Set<Panel> panels = new HashSet<>();
 
   @OneToOne
@@ -58,6 +59,7 @@ public class Project extends BaseEntity {
   private Budget budget;
 
   @OneToMany(mappedBy = Notification.A_PROJECT)
+  @Builder.Default
   private Set<Notification> notifications = new HashSet<>();
 
   @ManyToOne

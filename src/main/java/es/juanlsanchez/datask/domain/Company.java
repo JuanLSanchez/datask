@@ -46,9 +46,11 @@ public class Company extends BaseEntity {
   // Relationships ----------------------------------------------
 
   @OneToMany(mappedBy = Project.A_COMPANY)
+  @Builder.Default
   private Set<Project> projects = new HashSet<>();
 
   @OneToMany(mappedBy = User.A_COMPANY)
+  @Builder.Default
   private Set<User> user = new HashSet<>();
 
   @OneToOne(mappedBy = Subscription.A_SUBSCRIPTION)

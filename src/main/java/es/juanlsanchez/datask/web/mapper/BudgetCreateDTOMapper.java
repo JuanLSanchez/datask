@@ -2,6 +2,7 @@ package es.juanlsanchez.datask.web.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 
 import es.juanlsanchez.datask.domain.Budget;
@@ -12,5 +13,9 @@ public interface BudgetCreateDTOMapper {
 
   @Mappings({@Mapping(target = "id", ignore = true), @Mapping(target = "project", ignore = true)})
   public Budget toBudget(BudgetCreateDTO budgetCreateDTO);
+
+
+  @Mappings({@Mapping(target = "project", ignore = true)})
+  public void update(BudgetCreateDTO budgetCreateDTO, @MappingTarget Budget budget);
 
 }
