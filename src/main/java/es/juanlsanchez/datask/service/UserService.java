@@ -23,4 +23,8 @@ public interface UserService {
 
   public Optional<User> findOneByPrincipal();
 
+  public User getOne(Long userId);
+
+  public Optional<User> findOne(Long userId);
+
 }

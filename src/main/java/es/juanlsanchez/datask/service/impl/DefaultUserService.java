@@ -107,4 +107,15 @@ public class DefaultUserService implements UserService {
     this.userRepository.delete(user);
   }
 
+  @Override
+  public User getOne(Long userId) {
+    return findOne(userId)
+        .orElseThrow(() -> new IllegalArgumentException("Not found user" + userId));
+  }
+
+  @Override
+  public Optional<User> findOne(Long userId) {
+    return Optional.ofNullable(this.userRepository.findOne(userId));
+  }
+
 }
